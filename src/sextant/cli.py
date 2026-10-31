@@ -33,6 +33,7 @@ from sextant.runtime import Executor
 from sextant.storage import Store
 
 COMMANDS = ("start", "inspect", "run", "pause", "resume", "cancel", "observe", "withdraw", "resolve", "revise", "export", "import", "authorize", "replay", "reconcile")
+GUIDE_TOPICS = ("README", "data-and-recovery", "runtime")
 
 
 def parser() -> argparse.ArgumentParser:
@@ -67,7 +68,7 @@ def parser() -> argparse.ArgumentParser:
     q.add_argument("destination")
     q.add_argument("--json", action="store_true", help="print the machine copy receipt")
     q = sub.add_parser("guide", help="read the installed user guide; no runtime/model calls")
-    q.add_argument("topic", nargs="?", default="README", choices=("README", "quickstart", "protocol", "reasoning", "data-and-recovery", "runtime"))
+    q.add_argument("topic", nargs="?", default="README", choices=GUIDE_TOPICS)
     q = sub.add_parser("legacy", help="historical diagnostics; cannot establish V1 authority")
     q.add_argument("arguments", nargs=argparse.REMAINDER)
     return p

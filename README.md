@@ -22,6 +22,7 @@ Models only propose. Goals, preferences, and authorization come from you. Yes-or
 - `src/sextant/`: the engine and the command line. Tasks live in a SQLite store with immutable artifacts that supports revisions, replay, export and import, migration, and backup.
 - `src/sextant/providers/`: the adapters for the local model clients that generate proposals.
 - `examples/v1/`: offline example tasks and a script that runs one from start to finish.
+- `docs/user/`: the user guide, packaged with the wheel and printed by `sextant guide`.
 - `tests/`: the offline test suite.
 - `schema/` and `config.toml`: the decision-graph schema and default settings used by the older decision-graph and calibration tools, which `sextant legacy` exposes read-only.
 
@@ -34,6 +35,8 @@ uv sync --frozen
 .venv/bin/python -m sextant.cli --help
 .venv/bin/python examples/v1/workflow.py examples/v1/arithmetic-payload.json --output "$(mktemp -d)/arithmetic-example"
 ```
+
+`.venv/bin/sextant guide` prints the user guide: the main commands, how a task runs, and how to inspect, replay, export, and back it up.
 
 To run the offline test suite:
 

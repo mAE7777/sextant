@@ -34,9 +34,10 @@ packages = ["src/sextant"]
 
 [tool.hatch.build.targets.wheel.force-include]
 "examples/v1" = "sextant/resources/examples/v1"
+"docs/user" = "sextant/resources/user"
 
 [tool.hatch.build.targets.sdist]
-only-include = ["pyproject.toml", "uv.lock", "README.md", "src/sextant", "examples/v1"]
+only-include = ["pyproject.toml", "uv.lock", "README.md", "src/sextant", "docs/user", "examples/v1"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
