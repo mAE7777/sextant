@@ -1,0 +1,69 @@
+{
+  "rule": "every sibling set has a residual node",
+  "expect": "FAIL",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_2c6fe3bbd8e5",
+        "kind": "question",
+        "text_original": "Should I take the offer?",
+        "text_en": "Should I take the offer?"
+      },
+      {
+        "id": "n_402f5c3777dc",
+        "kind": "factor",
+        "text_original": "salary covers expenses",
+        "text_en": "salary covers expenses"
+      },
+      {
+        "id": "n_7a2a2c168ee1",
+        "kind": "factor",
+        "text_original": "commute under 45 minutes",
+        "text_en": "commute under 45 minutes"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_d3c004db6a9f",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_402f5c3777dc",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_402f5c3777dc"
+          ],
+          "applicability": ""
+        }
+      },
+      {
+        "id": "e_f0cde229f6b5",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_7a2a2c168ee1",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_7a2a2c168ee1"
+          ],
+          "applicability": ""
+        }
+      }
+    ]
+  }
+}

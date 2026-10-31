@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "scope": "configured-client-pure-proposals",
+  "auth_route": "native-codex-chatgpt-subscription",
+  "pairs": [
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "xhigh"
+    }
+  ],
+  "source_hashes": {
+    "providers/codex_native.py": "61460d734ac5e97ed95459defbab79a7f0bb75ea40e6016061545760af120492",
+    "providers/codex_transport.py": "0173b2060ef43ac06da501733d5ba41da457f1aca6282b722d4d700bedb0644b",
+    "isolation.py": "df6442bd2e758bce692cfb5605825a8ccd61dbe06b72703c86d32f5b399e5697",
+    "domain.py": "768eff88fe6dec585779975f1dd40870e850de7f8b92e051a79ea8256f0e2471",
+    "jev_transport.py": "06d97b3681cd99ab62e7243761c57e1a86c40f542af8d49fc12d3cd85ae2d1df"
+  },
+  "binary_sha256": "112fae7a5a1223e673c8a1791d32338f37df8b527ff1159bb8adac6c4dbf1b4b",
+  "host_sha256": "679eedaea70529aa1cffc9bc0a0788c186412663544fa76c09d63b57f383a65a",
+  "evidence": {
+    "guarded_transport_probe_manifest": "733715c3058415293c88588f8e909fa253b26e5559deacfad1e84b5f763fe99b",
+    "actual_public_proposal_summary": "312558dde6bb14bb90de5c198df51c04758e229691d37d8a1c991e6bb78504df",
+    "independent_actual_outcome": "4d95ea7fc3713e7962fc535344d1b26af3348704e0c30f039eca9c11a9f36534",
+    "previous_qualification": "b96821f167c7922810cd9cb229e493addac988107f5c5567985e8b066710c09f",
+    "independent_domain_compatibility": "6f549a1d139298f809e6aa0c980c52d604097781610391d5224b82ebc26ea69e",
+    "independent_domain_assessment": "63648db12004318ab60ac3abd1ff3963bf75dcb9eb3c58a4e7e997dfa90d3e74",
+    "independent_resolver_r2": "d5badf2af01725dc0cfd9240c63859472f679b35bdc8084938e43e4050cd3ddb",
+    "previous_cache_boundary_qualification": "8ba634f1f28417d48ee64f56a70fd395754256c9a6b281a23ca9e781518262d5",
+    "independent_child_cache_source_and_execution": "af561b1122a72c4d00c9843629f145e9b948b2c9cdd5c7b61d31d68747521dff",
+    "independent_child_cache_controls": "e65a84fe5ec85bb790a05bdb2de8a29340b965327f0c2e34c8dc846069d1c3fd",
+    "actual_local_child_cache_boundary": "03ed8b647c6e979dd95f1cab8030f08d08680b4cd98905ea1847b82e923e3901"
+  },
+  "trust_assumptions": [
+    "Reviewed trusted Sextant package and Python/dependency runtime; not malicious-host resistance",
+    "Pinned native client and host; engine can read its one temporary subscription auth copy",
+    "macOS deny-default Seatbelt and trusted system services/libraries",
+    "Before/after effective client metadata and complete raw audit; actual HTTPS tool declarations/backend identity remain unobserved",
+    "This is not evaluator private-truth custody or V1 task quality/release acceptance",
+    "Each Python limiter/target uses an empty private per-child cache lookup prefix with bytecode writes disabled; ordinary CPython cache lookup only, deliberate sourceless loaders and malicious same-UID excluded"
+  ],
+  "qualification_update": {
+    "kind": "reviewed-child-python-cache-boundary-supersession",
+    "previous_qualification_sha256": "8ba634f1f28417d48ee64f56a70fd395754256c9a6b281a23ca9e781518262d5",
+    "changed_contracts": [
+      "run_isolated Python limiter invocation",
+      "verify_local_boundary Python target invocation"
+    ],
+    "unchanged_contracts": [
+      "native pure Proposal transport/schema",
+      "pinned Codex client and host",
+      "subscription auth copy and before/after audits",
+      "Seatbelt deny-default policy",
+      "process group, timeout and output limits"
+    ],
+    "additional_product_delta": "PythonSandbox target uses same fresh cache mechanism; independently reviewed with isolation.py",
+    "source_review": "Independent five author regressions and fourteen additional actual public bounded child/OS/cleanup controls; source pins checked",
+    "live_evidence": "Historical unchanged configured transport evidence retained in its original scope. This delta made zero native/SDK calls. Current installed public native confirmation and full evaluator runtime entry qualification remain separate execution obligations.",
+    "scope_limit": "No backend identity, private final truth custody, whole-product task quality or release acceptance",
+    "cache_limit": "fresh -X prefix changes ordinary __pycache__ lookup; executor runtime membership must reject/pin executable sourceless bytecode extras"
+  }
+}

@@ -1,0 +1,56 @@
+id: R7
+purpose: The leaf evaluator. Judges a compiled factual node against its dated evidence pack. The leaf
+  question's text, primitive, options or levels come from the node; this card holds the instructions,
+  the sufficiency twin that rides in the same request, and the calibration record (outcome-calibrated,
+  scored when the node resolves).
+primitive: noul
+state_pack:
+- question
+- definition
+- answer_space
+- evidence_items
+instructions: 'You will see a QUESTION with its DEFINITION, its ANSWER SPACE, and a numbered list of EVIDENCE
+
+  ITEMS, each with a source and a date. Answer using only the evidence items. Do not use outside
+
+  knowledge. If the evidence items do not settle the question, the sufficiency question is where
+
+  that is said; do not guess. "Enough information" means: a careful reader could pick one answer
+
+  from the answer space using only the evidence items and would not have to guess.
+
+  '
+questions:
+  leaf:
+    primitive: noul
+    text: '{question}'
+    role: main
+    criteria_true: The evidence items establish the answer yes according to the definition.
+    criteria_false: The evidence items establish the answer no according to the definition.
+    permits_on: true
+  sufficient:
+    primitive: noul
+    text: Is there enough information in the evidence items to answer the question?
+    role: sufficiency
+    criteria_true: A careful reader could pick one answer from the answer space using only the evidence
+      items and would not have to guess.
+    criteria_false: The evidence items do not settle the question; a reader would have to guess.
+    permits_on: true
+thresholds: {}
+rung: jev
+question_hashes:
+  leaf: qh_cc947bc5378e51d2
+  sufficient: qh_889f54e5ef599a2b
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'The leaf question is rendered from the node ({question}); its primitive follows the
+  node''s
+
+  answer space (noul, choice with an escape option, or score with legends). For choice and score
+
+  leaves the client replaces the noul criteria with the node''s options or levels. The sealed hash
+
+  covers the template and the instructions; every call also records the rendered text''s hash.
+
+  '

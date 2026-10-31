@@ -1,0 +1,67 @@
+# Default configuration for the decision-graph and calibration tools under `sextant legacy`.
+# It holds no secrets: API keys are read from environment variables such as TYPESAFE_API_KEY.
+
+[paths]
+decisions_dir = "decisions-v2"
+calibration_dir = "calibration-v2"
+rolecards_dir = "package"
+skill_dir = "not-packaged"
+
+[providers]
+generator = "claude-code"
+challenger = "claude-code-subagent"
+grader = "claude-code-subagent"
+paraphraser = "claude-code-subagent"
+translator = "claude-code"
+renderer = "claude-code"
+mapper = "claude-code"
+auto_fulfil = []
+codex_timeout_s = 600
+deepseek_model = ""
+gemini_model = "gemini-3.8-flash"
+openai_model = ""
+
+[jev]
+transport = "typesafe"
+model_id = "jev-1.13.0"
+permutations = 4
+reruns = 3
+contested_margin = 0.1
+max_state_tokens = 30000
+max_request_tokens = 60000
+requests_per_minute = 1000
+canonical_language = "en"
+
+[tiers.T1]
+depth_max = 2
+breadth_max = 5
+error_budget_target = 0.6
+k_decompositions = 2
+
+[tiers.T2]
+depth_max = 4
+breadth_max = 7
+error_budget_target = 0.75
+k_decompositions = 3
+
+[tiers.T3]
+depth_max = 5
+breadth_max = 7
+error_budget_target = 0.85
+k_decompositions = 3
+
+[calibration]
+target_agreement_T2 = 0.9
+degrade_agreement_drop = 0.05
+degrade_auroc_floor = 0.7
+degrade_flip_rate = 0.15
+outcome_bar = 30
+min_items_per_bin = 100
+canary_band = 0.05
+
+[aggregate]
+box_sd_multiplier = 2.0
+sufficiency_widening = 0.5
+mc_samples = 4000
+mc_seed = 20260918
+weight_swing = 0.25

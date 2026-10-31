@@ -1,0 +1,128 @@
+id: R1
+purpose: Measure how far a question is from being judgeable, on eight dimensions; recorded at the root
+  and at leaves, reported and used by the corpus program, never a gate.
+primitive: score
+state_pack:
+- question
+- definition
+- known_context
+instructions: 'You will see a QUESTION, a DEFINITION of its terms (may be empty), and KNOWN CONTEXT (may
+  be empty).
+
+  Rate the question itself, not its answer. Use only the text shown. "Observable" means something
+
+  a person could see, measure, or read in a record. "A particular person''s preferences" means what
+
+  one specific person wants or values, as opposed to facts that hold for anyone.
+
+  '
+questions:
+  verifiability:
+    primitive: score
+    text: Could the answer to the question be checked against something observable?
+    levels:
+    - there is no way to check the answer
+    - only weak indirect signs of the answer could be checked
+    - some parts of the answer could be checked with effort
+    - most of the answer could be checked against records or measurements
+    - a direct observation or measurement would settle the answer
+    role: main
+    permits_on: true
+  observability:
+    primitive: score
+    text: Does evidence about the question exist today, in the known context or in records a person could
+      obtain?
+    levels:
+    - no evidence exists yet; the answer lies in the future
+    - only hints exist
+    - partial evidence exists and would need to be gathered
+    - most of the evidence exists and is reachable
+    - the evidence is already present in the known context
+    role: main
+    permits_on: true
+  boundedness:
+    primitive: score
+    text: Is the set of possible answers to the question fixed and small?
+    levels:
+    - the answers are open-ended and unlimited
+    - the answers are open-ended but fall into a few loose kinds
+    - the answers could be listed with effort
+    - the answers are a known short list
+    - the answer is yes or no, or one of a handful of named options
+    role: main
+    permits_on: true
+  value_dependence:
+    primitive: score
+    text: How much does the answer depend on a particular person's preferences?
+    levels:
+    - not at all; the answer is the same for anyone
+    - slightly; preferences change the emphasis but not the answer
+    - partly; facts and preferences both shape the answer
+    - mostly; the answer is mainly a matter of preference
+    - entirely; the question asks what a person wants or values
+    role: main
+    permits_on: true
+  causal_depth:
+    primitive: score
+    text: How far is the question from something observable?
+    levels:
+    - the question is itself about something directly observable
+    - one intermediate question separates it from something observable
+    - two intermediate questions separate it from something observable
+    - several intermediate questions separate it from something observable
+    - a long chain of intermediate questions separates it from anything observable
+    role: main
+    permits_on: true
+  feedback_delay:
+    primitive: score
+    text: How soon after acting on the answer would a person learn whether the answer was right?
+    levels:
+    - the person would learn within days of acting
+    - the person would learn within weeks of acting
+    - the person would learn within months of acting
+    - the person would learn only years after acting
+    - the person might never learn whether the answer was right
+    role: main
+    permits_on: true
+  decomposability:
+    primitive: score
+    text: Could the question be split into smaller questions that together answer it?
+    levels:
+    - no; it is already a single narrow question
+    - barely; any split would be artificial
+    - partly; some parts split off, one core part stays
+    - yes; a clear set of smaller questions would answer it
+    - yes; it is a broad question made of many smaller ones
+    role: main
+    permits_on: true
+  actionability:
+    primitive: score
+    text: Could a person act on the answer without asking further questions?
+    levels:
+    - no; the answer would leave the person unsure what to do
+    - barely; several further questions would be needed first
+    - partly; one or two further questions would be needed first
+    - mostly; the answer points to an action with small gaps
+    - yes; the answer names the action directly
+    role: main
+    permits_on: true
+thresholds: {}
+rung: jev
+question_hashes:
+  verifiability: qh_9e2104dfebe27b4e
+  observability: qh_b274ba42cd8156d0
+  boundedness: qh_bb86cca7dcec5ac8
+  value_dependence: qh_56babb262a59fd6a
+  causal_depth: qh_ac6649d7345e4d9e
+  feedback_delay: qh_98b82edd9c9f1588
+  decomposability: qh_517e9d2c42f51d5d
+  actionability: qh_b3d99503816f912f
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'Informational card: no threshold gates on it. The causal_depth legends name step counts
+  as
+
+  descriptions of situations, not as arithmetic to perform.
+
+  '

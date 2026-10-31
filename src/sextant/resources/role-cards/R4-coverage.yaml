@@ -1,0 +1,59 @@
+id: R4
+purpose: The set verifier. Given a parent question and its proposed children, judges each child's standing
+  as a major component, whether a major component is absent, and which pairs overlap. The completeness
+  arithmetic (how many majors, which to merge) is done in code from these answers, never by Jev.
+primitive: noul
+state_pack:
+- parent_question
+- child_questions
+instructions: 'You will see a PARENT question and a numbered list of CHILD questions proposed as its main
+
+  components. "Major component" means: a part that a careful analyst would have to answer before
+
+  answering the parent. "Ask the same thing" means: the two questions would be settled by the same
+
+  evidence. "Absent from the list" means: no listed child question covers that part.
+
+  '
+questions:
+  major:
+    primitive: noul
+    text: Is child question {n} a major component of the parent question?
+    role: item
+    criteria_true: A careful analyst would have to answer child question {n} before answering the parent
+      question.
+    criteria_false: The parent question can be answered without answering child question {n}.
+    permits_on: true
+  missing:
+    primitive: noul
+    text: Is at least one major component of the parent question absent from the list of child questions?
+    role: main
+    criteria_true: There is a part a careful analyst would have to answer before answering the parent,
+      and none of the listed child questions covers it.
+    criteria_false: Every part a careful analyst would have to answer before answering the parent is covered
+      by a listed child question.
+    permits_on: false
+  overlap:
+    primitive: noul
+    text: Do child question {i} and child question {j} ask the same thing?
+    role: pairwise
+    criteria_true: Child question {i} and child question {j} would be settled by the same evidence.
+    criteria_false: Child question {i} and child question {j} would need different evidence.
+    permits_on: false
+thresholds: {}
+rung: jev
+question_hashes:
+  major: qh_a9151e50ea02b75a
+  missing: qh_b3f482496e8dd19f
+  overlap: qh_857c02ff0051d0b3
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'Spike 2026-09-18: missing 0.77 (en) vs 0.54 (zh) on a three-child startup decomposition
+  that
+
+  omitted opportunity cost and personal fit; major_2 0.81. The "missing" probability fires the
+
+  challenger and labels the residual node low / medium / high; it is never turned into a mass.
+
+  '

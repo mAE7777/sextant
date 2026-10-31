@@ -1,0 +1,49 @@
+{
+  "rule": "an edge must join legal node kinds for its type",
+  "expect": "PASS",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_0b4a6411522a",
+        "kind": "value",
+        "text_original": "autonomy matters",
+        "text_en": "autonomy matters"
+      },
+      {
+        "id": "n_823e0b458bec",
+        "kind": "criterion",
+        "text_original": "autonomy",
+        "text_en": "autonomy"
+      },
+      {
+        "id": "n_f73a8513fc7c",
+        "kind": "factor",
+        "text_original": "commute time",
+        "text_en": "commute time"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_2437a0f31b0e",
+        "type": "is_value_for",
+        "from_id": "n_0b4a6411522a",
+        "to_id": "n_823e0b458bec"
+      }
+    ]
+  }
+}

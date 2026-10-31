@@ -1,0 +1,10 @@
+{
+  "source": "packaged synthetic service requirement update v2",
+  "source_group": "service-cache-example-v2",
+  "supports_scope": "A new synthetic requirement for a follow-up experiment, not an already observed result",
+  "content": {
+    "change": "Prices can now change between requests while the cache survives. After the first US tea request, its origin price changes from 5 to 6 before the second identical request. The service must return the new price. Region plus SKU alone may no longer be sufficient.",
+    "experiment_required": "Execute this new sequence with a persistent cache. Compare disabling cache, invalidating the affected key on a price update, and adding the authoritative price revision to the key. State what supplies that revision or invalidation event; do not assume an unavailable signal.",
+    "available_signal": "The synthetic price-update event includes (region, SKU, new price, monotonically increasing revision). This is a fixture contract, not a claim about production infrastructure."
+  }
+}

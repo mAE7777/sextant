@@ -1,0 +1,26 @@
+{
+  "rule": "a gate PASS is a checker receipt bound to the current wire protocol",
+  "expect": "PASS",
+  "data": {
+    "gates": {
+      "intake": {
+        "authority": "checker",
+        "status": "PASS",
+        "at": "2026-09-18T00:00:00Z",
+        "token": "gr_20d4d62f82627915",
+        "receipt": {
+          "protocol_version": "sextant-jev-wire/3",
+          "checker": "sextant.graph.structure@2",
+          "input_revisions": {
+            "graph_version": "1",
+            "protocol_version": "sextant-jev-wire/3"
+          },
+          "artifact_hash": "artifact-fixture",
+          "prerequisites": [],
+          "result": "PASS"
+        },
+        "note": null
+      }
+    }
+  }
+}

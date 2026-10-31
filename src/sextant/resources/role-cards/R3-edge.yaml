@@ -1,0 +1,99 @@
+id: R3
+purpose: The edge verifier. For every proposed child of a parent question it judges direct relevance,
+  concreteness gain, whether an intermediate level was skipped, and which relation the edge is. Fires
+  in the verify step of every decomposition.
+primitive: noul
+state_pack:
+- parent_question
+- child_question
+- parent_kind
+- child_kind
+instructions: 'You will see a PARENT question and a CHILD question. Both are steps in breaking a decision
+  into
+
+  smaller questions. "Contributes directly" means: the child''s answer is used to answer the parent
+
+  with no other question in between. "More concrete" means: closer to something that can be
+
+  observed, measured, or tested with evidence. "An intermediate question" means: a question that
+
+  the child answers a part of, and that the parent needs answered as a whole, standing between
+
+  the two.
+
+  '
+questions:
+  relevance:
+    primitive: noul
+    text: Does the answer to the child question contribute directly to the answer of the parent question?
+    role: main
+    criteria_true: The child's answer is used to answer the parent question with no other question in
+      between.
+    criteria_false: The child's answer is not used to answer the parent question, or is used only through
+      another question.
+    permits_on: true
+  relevance_neg:
+    primitive: noul
+    text: Is the child question unrelated to the parent question?
+    role: negation_twin
+    criteria_true: Answering the child question does not help answer the parent question.
+    criteria_false: Answering the child question helps answer the parent question.
+    permits_on: false
+  more_concrete:
+    primitive: noul
+    text: Is the child question more concrete than the parent question?
+    role: main
+    criteria_true: The child question is closer than the parent to something that can be observed, measured,
+      or tested with evidence.
+    criteria_false: The child question is as abstract as the parent, or more abstract.
+    permits_on: true
+  skipped_level:
+    primitive: noul
+    text: Is there an intermediate question standing between the parent question and the child question?
+    role: main
+    criteria_true: 'An intermediate question stands between them: the child answers only a part of it
+      and the parent needs it answered as a whole.'
+    criteria_false: The child connects to the parent without an intermediate question.
+    permits_on: false
+  edge_type:
+    primitive: choice
+    text: Which sentence best describes how the child question relates to the parent question?
+    options:
+      part: the child is one part of what the parent asks
+      likelihood: the child's answer changes how likely each answer to the parent is
+      limit: the child is a limit that rules some answers to the parent out
+      measure: the child is how an answer to the parent would be measured
+      value: the child asks what the person prefers about the parent
+      enables: the child is an action that would change the parent's answer
+      none_fits: none of these sentences fits
+    escape: none_fits
+    role: main
+    permits_on: true
+thresholds:
+  more_concrete:
+    n: 0
+    primitive: noul
+    status: unfit
+    n_holdout_effective: 0
+    cleared_reason: question text changed (qh_040f583f9d601d1a -> qh_201e951383a9a34e); refit before using
+      it
+rung: jev
+question_hashes:
+  relevance: qh_5b70729618e28a24
+  relevance_neg: qh_530c1ece663ddba3
+  more_concrete: qh_201e951383a9a34e
+  skipped_level: qh_fbcada74cbbc8660
+  edge_type: qh_87d7f995698c4a65
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'Spike 2026-09-18: relevance 0.84 for a real child, 0.01 for an unrelated one; negation
+  gap 0.12
+
+  on the real child (0.84 vs 0.28 unrelated). The five-way "how concrete" Choice mixed two
+
+  judgments and flipped its winner under every reordering; it is split here into more_concrete
+
+  and skipped_level, each a Noul.
+
+  '

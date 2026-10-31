@@ -1,0 +1,50 @@
+id: R6
+purpose: The stop check before the graph is numeric. Asks whether knowing a node's exact answer would
+  change the choice; once estimates exist, value of information computed in code takes over.
+primitive: noul
+state_pack:
+- decision_question
+- options
+- node_question
+- known_about_node
+instructions: 'You will see the DECISION question, its OPTIONS, one NODE question, and WHAT IS KNOWN about
+  the
+
+  node so far. "Change the choice" means: a careful decision-maker who learned the node''s exact
+
+  answer would pick a different option than they would pick without it.
+
+  '
+questions:
+  would_change:
+    primitive: noul
+    text: If the exact answer to the node question became known, would it change the choice among the
+      options?
+    role: main
+    criteria_true: A careful decision-maker who learned the node's exact answer would pick a different
+      option than without it.
+    criteria_false: A careful decision-maker would pick the same option whatever the node's exact answer
+      turned out to be.
+    permits_on: false
+  would_change_neg:
+    primitive: noul
+    text: Would the choice among the options stay the same whatever the answer to the node question turns
+      out to be?
+    role: negation_twin
+    criteria_true: The same option would be picked for every possible answer to the node question.
+    criteria_false: At least one possible answer to the node question would lead to a different option
+      being picked.
+    permits_on: true
+thresholds: {}
+rung: jev
+question_hashes:
+  would_change: qh_66ce78680e8e40dd
+  would_change_neg: qh_b122ebf9584bc67a
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'Used only while a node has no estimate. After aggregation the expected value of perfect
+
+  information (code) decides deepening and stopping.
+
+  '

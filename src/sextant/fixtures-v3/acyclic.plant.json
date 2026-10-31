@@ -1,0 +1,49 @@
+{
+  "rule": "decomposition and dependency edges form no cycle",
+  "expect": "FAIL",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_9ebb308d00ad",
+        "kind": "factor",
+        "text_original": "rent level",
+        "text_en": "rent level"
+      },
+      {
+        "id": "n_3c8b4323aa0a",
+        "kind": "factor",
+        "text_original": "savings rate",
+        "text_en": "savings rate"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_8479f0f05a4d",
+        "type": "depends_on",
+        "from_id": "n_9ebb308d00ad",
+        "to_id": "n_3c8b4323aa0a"
+      },
+      {
+        "id": "e_1949b4116f2d",
+        "type": "depends_on",
+        "from_id": "n_3c8b4323aa0a",
+        "to_id": "n_9ebb308d00ad"
+      }
+    ]
+  }
+}

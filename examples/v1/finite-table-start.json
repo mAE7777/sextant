@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "protocol": "sextant-agent/1",
+  "command_id": "example-finite-table-start",
+  "kind": "start",
+  "payload": {
+    "mission": {
+      "goal": "For the supplied finite two-bit table, propose competing mechanisms and a sandbox experiment. After actual execution, revise the finite-table policy and state its limits.",
+      "scope": {
+        "language": "en",
+        "domain": "finite synthetic table"
+      }
+    },
+    "observations": [
+      {
+        "content": {
+          "rows": [
+            {
+              "a": 0,
+              "b": 0,
+              "y": 0
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "y": 1
+            },
+            {
+              "a": 1,
+              "b": 0,
+              "y": 1
+            },
+            {
+              "a": 1,
+              "b": 1,
+              "y": 0
+            }
+          ]
+        },
+        "source": "explicit synthetic example",
+        "source_group": "synthetic-table",
+        "supports_scope": "this four-row table only"
+      }
+    ],
+    "authorization": {
+      "tools": [
+        "codex",
+        "typesafe",
+        "sandbox.python"
+      ],
+      "send_to": {
+        "codex": [
+          "*"
+        ],
+        "typesafe": [
+          "*"
+        ],
+        "sandbox.python": [
+          "*"
+        ]
+      }
+    },
+    "options": {
+      "effort": "xhigh",
+      "jev_density": "multi_level",
+      "challenger": true,
+      "rerepresentation": true,
+      "steps": 3,
+      "generator": "codex",
+      "model": "gpt-6.1-sol"
+    }
+  }
+}

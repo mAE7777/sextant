@@ -1,0 +1,60 @@
+{
+  "rule": "an evidence link has both a supports edge and a cites edge",
+  "expect": "PASS",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_402f5c3777dc",
+        "kind": "factor",
+        "text_original": "salary covers expenses",
+        "text_en": "salary covers expenses"
+      },
+      {
+        "id": "n_194d69bacd56",
+        "kind": "evidence",
+        "text_original": "offer letter, 2026-09-10: base salary $180k",
+        "text_en": "offer letter, 2026-09-10: base salary $180k"
+      },
+      {
+        "id": "n_7262a1142127",
+        "kind": "evidence_link",
+        "text_original": "offer letter supports salary factor",
+        "text_en": "offer letter supports salary factor",
+        "members": [
+          "n_194d69bacd56",
+          "n_402f5c3777dc"
+        ],
+        "direction": "+"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_6ff3b20e77ff",
+        "type": "supports",
+        "from_id": "n_7262a1142127",
+        "to_id": "n_402f5c3777dc"
+      },
+      {
+        "id": "e_69fddffa591f",
+        "type": "cites",
+        "from_id": "n_7262a1142127",
+        "to_id": "n_194d69bacd56"
+      }
+    ]
+  }
+}

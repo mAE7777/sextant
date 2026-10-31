@@ -1,0 +1,4 @@
+{
+  "mission": {"goal": "计算 7 * (3 + 2)", "scope": {"language": "zh", "domain": "finite arithmetic"}},
+  "options": {"jev_density": "none"}
+}

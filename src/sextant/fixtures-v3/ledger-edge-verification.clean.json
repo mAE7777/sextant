@@ -1,0 +1,158 @@
+{
+  "rule": "an edge's verification judgment is audited against the ledger too",
+  "expect": "PASS",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_2c6fe3bbd8e5",
+        "kind": "question",
+        "text_original": "Should I take the offer?",
+        "text_en": "Should I take the offer?"
+      },
+      {
+        "id": "n_402f5c3777dc",
+        "kind": "factor",
+        "text_original": "salary covers expenses",
+        "text_en": "salary covers expenses"
+      },
+      {
+        "id": "n_fe84b696ecd5",
+        "kind": "factor",
+        "text_original": "other components not listed",
+        "text_en": "other components not listed",
+        "residual": true
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_d3c004db6a9f",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_402f5c3777dc",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_402f5c3777dc"
+          ],
+          "applicability": ""
+        },
+        "verification": {
+          "relevance": {
+            "primitive": "noul",
+            "p": 0.8,
+            "card_id": "R7",
+            "question_key": "leaf",
+            "question_hash": "qh_09ff8c776282c101",
+            "rendered_hash": "rq_044b4e580942b947",
+            "state_sha": "e92a83518b66d994",
+            "protocol_version": "sextant-jev-wire/3",
+            "run_id": "run_fixture0001",
+            "language": "en",
+            "aggregation": "single",
+            "contested": false,
+            "contributions": [
+              {
+                "call_id": "jc_fixture0001",
+                "variant": "base",
+                "role": "primary",
+                "rendered_hash": "rq_044b4e580942b947",
+                "value": 0.8,
+                "contributes_to_value": true
+              }
+            ],
+            "model_id": "jev-1.13.0",
+            "transport": "controlled:fixture",
+            "source_tier": "jev-judged",
+            "calibration_status": {
+              "kind": "outcome",
+              "state": "pending",
+              "n": 0,
+              "bar": 30
+            },
+            "at": "2026-09-18T00:00:00Z"
+          }
+        }
+      },
+      {
+        "id": "e_8529e7f28d87",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_fe84b696ecd5",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_fe84b696ecd5"
+          ],
+          "applicability": ""
+        }
+      }
+    ],
+    "_ledger_index": {
+      "jc_fixture0001": {
+        "seq": 1,
+        "at": "2026-09-18T00:00:00Z",
+        "id": "jc_fixture0001",
+        "card_id": "R7",
+        "protocol_version": "sextant-jev-wire/3",
+        "run_id": "run_fixture0001",
+        "call_role": "primary",
+        "run_protocol": {
+          "permutations": 1,
+          "reruns": 0,
+          "contested_margin": 0.1
+        },
+        "question_keys": [
+          "leaf"
+        ],
+        "question_bindings": {
+          "leaf": {
+            "template_hash": "qh_09ff8c776282c101",
+            "rendered_hash": "rq_044b4e580942b947"
+          }
+        },
+        "questions_digest": "qs_77c54508aadd0c83",
+        "model_id": "jev-1.13.0",
+        "transport": "controlled:fixture",
+        "state_sha": "e92a83518b66d994",
+        "variant": "base",
+        "request": {
+          "state": {
+            "question": "Does the salary cover expenses?"
+          },
+          "questions": {
+            "leaf": {
+              "type": "noul",
+              "instructions": "[sextant-jev-wire/3] role card R7 — leaf judgment fixture\nAnswer language: en\nShared card instructions (they apply to every question in this request):\nAnswer from the state alone.\nQuestion (R7.leaf):\nIs it true that Does the salary cover expenses?"
+            }
+          },
+          "request_digest": "rqst_174e2ad5643d4b88"
+        },
+        "response": {
+          "answers": {
+            "leaf": {
+              "type": "noul",
+              "noul": 0.8
+            }
+          },
+          "usage": {},
+          "request_id": "fixture"
+        }
+      }
+    }
+  }
+}

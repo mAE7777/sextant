@@ -1,0 +1,1781 @@
+{
+  "$defs": {
+    "AnswerSpace": {
+      "additionalProperties": false,
+      "properties": {
+        "primitive": {
+          "$ref": "#/$defs/Primitive"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Options"
+        },
+        "levels": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Levels"
+        },
+        "escape_option": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Escape Option"
+        }
+      },
+      "required": [
+        "primitive"
+      ],
+      "title": "AnswerSpace",
+      "type": "object"
+    },
+    "Budgets": {
+      "additionalProperties": false,
+      "properties": {
+        "depth_max": {
+          "title": "Depth Max",
+          "type": "integer"
+        },
+        "breadth_max": {
+          "title": "Breadth Max",
+          "type": "integer"
+        },
+        "error_budget_target": {
+          "title": "Error Budget Target",
+          "type": "number"
+        }
+      },
+      "required": [
+        "depth_max",
+        "breadth_max",
+        "error_budget_target"
+      ],
+      "title": "Budgets",
+      "type": "object"
+    },
+    "CalibrationStatus": {
+      "additionalProperties": false,
+      "description": "How much authority this judgment's threshold has, kept apart from the judgment itself.\n\n`provisional` is the state that used to be missing: a fit the holdout could not confirm,\nonly fail to reject. `invalidated` covers a threshold whose certificate cannot be checked\nat all, including one written before thresholds carried a certificate.",
+      "properties": {
+        "kind": {
+          "enum": [
+            "agreement",
+            "outcome"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "state": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "provisional",
+            "calibrated",
+            "degraded",
+            "invalidated",
+            "out_of_domain"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "n": {
+          "default": 0,
+          "title": "N",
+          "type": "integer"
+        },
+        "bar": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bar"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "CalibrationStatus",
+      "type": "object"
+    },
+    "ContributingCall": {
+      "additionalProperties": false,
+      "description": "One Jev call that actually fed one question's judgment.\n\n`rendered_hash` is per contribution because a permutation shuffles the options and a\nparaphrase replaces the wording: those calls legitimately sent a different payload for\nthe same sealed question, and only the primary call sent the estimate's own payload.",
+      "properties": {
+        "call_id": {
+          "title": "Call Id",
+          "type": "string"
+        },
+        "variant": {
+          "title": "Variant",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "primary",
+            "permutation",
+            "rerun",
+            "paraphrase"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "rendered_hash": {
+          "title": "Rendered Hash",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "contributes_to_value": {
+          "default": true,
+          "title": "Contributes To Value",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "call_id",
+        "variant",
+        "role",
+        "rendered_hash"
+      ],
+      "title": "ContributingCall",
+      "type": "object"
+    },
+    "Edge": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/EdgeType"
+        },
+        "from_id": {
+          "title": "From Id",
+          "type": "string"
+        },
+        "to_id": {
+          "title": "To Id",
+          "type": "string"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Method"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verification": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Verification"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "strength": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Strength"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "default": "proposed",
+          "enum": [
+            "proposed",
+            "failed",
+            "repaired"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "from_id",
+        "to_id"
+      ],
+      "title": "Edge",
+      "type": "object"
+    },
+    "EdgeType": {
+      "enum": [
+        "decomposes_into",
+        "influences",
+        "constrains",
+        "depends_on",
+        "is_value_for",
+        "enables",
+        "measured_by",
+        "cites",
+        "supports",
+        "conflicts"
+      ],
+      "title": "EdgeType",
+      "type": "string"
+    },
+    "Estimate": {
+      "additionalProperties": false,
+      "description": "One judgment, bound to the exact calls, payload, input and protocol that produced it.\n\nThe provenance fields carry no defaults on purpose. An estimate stored before the wire\nprotocol existed cannot be loaded as evidence, because nothing recorded which bytes the\nmodel saw; it fails validation instead of being silently accepted.",
+      "properties": {
+        "primitive": {
+          "$ref": "#/$defs/Primitive"
+        },
+        "p": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "P"
+        },
+        "probabilities": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "number"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Probabilities"
+        },
+        "choice": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Choice"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Score"
+        },
+        "card_id": {
+          "title": "Card Id",
+          "type": "string"
+        },
+        "question_key": {
+          "title": "Question Key",
+          "type": "string"
+        },
+        "question_hash": {
+          "title": "Question Hash",
+          "type": "string"
+        },
+        "rendered_hash": {
+          "title": "Rendered Hash",
+          "type": "string"
+        },
+        "state_sha": {
+          "title": "State Sha",
+          "type": "string"
+        },
+        "protocol_version": {
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "language": {
+          "title": "Language",
+          "type": "string"
+        },
+        "input_language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Language"
+        },
+        "aggregation": {
+          "enum": [
+            "single",
+            "mean_of_runs",
+            "permutation_mean"
+          ],
+          "title": "Aggregation",
+          "type": "string"
+        },
+        "contested": {
+          "title": "Contested",
+          "type": "boolean"
+        },
+        "contributions": {
+          "items": {
+            "$ref": "#/$defs/ContributingCall"
+          },
+          "minItems": 1,
+          "title": "Contributions",
+          "type": "array"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "transport": {
+          "title": "Transport",
+          "type": "string"
+        },
+        "source_tier": {
+          "$ref": "#/$defs/SourceTier"
+        },
+        "stability": {
+          "$ref": "#/$defs/Stability"
+        },
+        "sufficiency_p": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sufficiency P"
+        },
+        "sufficiency_question_key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sufficiency Question Key"
+        },
+        "jev_confidence": {
+          "anyOf": [
+            {
+              "maximum": 1.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Jev Confidence"
+        },
+        "threshold_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ThresholdRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "calibration_status": {
+          "$ref": "#/$defs/CalibrationStatus"
+        },
+        "range": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Range"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "at": {
+          "title": "At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "primitive",
+        "card_id",
+        "question_key",
+        "question_hash",
+        "rendered_hash",
+        "state_sha",
+        "protocol_version",
+        "run_id",
+        "language",
+        "aggregation",
+        "contested",
+        "contributions",
+        "model_id",
+        "transport",
+        "source_tier",
+        "calibration_status",
+        "at"
+      ],
+      "title": "Estimate",
+      "type": "object"
+    },
+    "Evaluator": {
+      "additionalProperties": false,
+      "properties": {
+        "rung": {
+          "$ref": "#/$defs/Rung"
+        },
+        "card_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Card Id"
+        }
+      },
+      "required": [
+        "rung"
+      ],
+      "title": "Evaluator",
+      "type": "object"
+    },
+    "EvidenceRequirement": {
+      "additionalProperties": false,
+      "properties": {
+        "settles_when": {
+          "title": "Settles When",
+          "type": "string"
+        },
+        "cheapest_probe_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cheapest Probe Id"
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cost"
+        }
+      },
+      "required": [
+        "settles_when"
+      ],
+      "title": "EvidenceRequirement",
+      "type": "object"
+    },
+    "Frame": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "string"
+        },
+        "y": {
+          "title": "Y",
+          "type": "string"
+        },
+        "decision_type": {
+          "enum": [
+            "choose",
+            "evaluate",
+            "predict",
+            "diagnose",
+            "design_path"
+          ],
+          "title": "Decision Type",
+          "type": "string"
+        },
+        "horizon": {
+          "default": "",
+          "title": "Horizon",
+          "type": "string"
+        },
+        "stakes": {
+          "default": "medium",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "title": "Stakes",
+          "type": "string"
+        },
+        "reversibility": {
+          "default": "partly",
+          "enum": [
+            "reversible",
+            "partly",
+            "irreversible"
+          ],
+          "title": "Reversibility",
+          "type": "string"
+        },
+        "tier": {
+          "$ref": "#/$defs/Tier",
+          "default": "T2"
+        },
+        "tier_override_by": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tier Override By"
+        },
+        "options_open": {
+          "default": false,
+          "title": "Options Open",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "decision_type"
+      ],
+      "title": "Frame",
+      "type": "object"
+    },
+    "Gate": {
+      "additionalProperties": false,
+      "description": "A gate is either a checker receipt or a user judgment. It is never both.\n\n`PASS` exists only on a checker receipt whose token is `receipt_token`. A human\napproval is `user_judgment` and cannot use `PASS`.",
+      "properties": {
+        "authority": {
+          "$ref": "#/$defs/GateAuthority"
+        },
+        "status": {
+          "$ref": "#/$defs/GateStatus"
+        },
+        "at": {
+          "title": "At",
+          "type": "string"
+        },
+        "token": {
+          "minLength": 1,
+          "title": "Token",
+          "type": "string"
+        },
+        "receipt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GateReceipt"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "authority",
+        "status",
+        "at",
+        "token"
+      ],
+      "title": "Gate",
+      "type": "object"
+    },
+    "GateAuthority": {
+      "enum": [
+        "checker",
+        "user_judgment"
+      ],
+      "title": "GateAuthority",
+      "type": "string"
+    },
+    "GateReceipt": {
+      "additionalProperties": false,
+      "description": "What a checker binds when it issues a gate. A free-form token is not a receipt.",
+      "properties": {
+        "protocol_version": {
+          "minLength": 1,
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "checker": {
+          "minLength": 1,
+          "title": "Checker",
+          "type": "string"
+        },
+        "input_revisions": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Input Revisions",
+          "type": "object"
+        },
+        "artifact_hash": {
+          "minLength": 1,
+          "title": "Artifact Hash",
+          "type": "string"
+        },
+        "prerequisites": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prerequisites",
+          "type": "array"
+        },
+        "result": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ],
+          "title": "Result",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol_version",
+        "checker",
+        "input_revisions",
+        "artifact_hash",
+        "result"
+      ],
+      "title": "GateReceipt",
+      "type": "object"
+    },
+    "GateStatus": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "SKIP"
+      ],
+      "title": "GateStatus",
+      "type": "string"
+    },
+    "GraphProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "generator_families": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Generator Families",
+          "type": "array"
+        },
+        "challenger_families": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Challenger Families",
+          "type": "array"
+        },
+        "jev_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Jev Model"
+        },
+        "transport": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Transport"
+        }
+      },
+      "title": "GraphProvenance",
+      "type": "object"
+    },
+    "Language": {
+      "additionalProperties": false,
+      "properties": {
+        "original": {
+          "default": "en",
+          "title": "Original",
+          "type": "string"
+        },
+        "canonical": {
+          "default": "en",
+          "title": "Canonical",
+          "type": "string"
+        }
+      },
+      "title": "Language",
+      "type": "object"
+    },
+    "Method": {
+      "additionalProperties": false,
+      "properties": {
+        "ordered": {
+          "default": false,
+          "title": "Ordered",
+          "type": "boolean"
+        },
+        "subtasks": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Subtasks",
+          "type": "array"
+        },
+        "applicability": {
+          "default": "",
+          "title": "Applicability",
+          "type": "string"
+        }
+      },
+      "title": "Method",
+      "type": "object"
+    },
+    "Node": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/NodeKind"
+        },
+        "residual": {
+          "default": false,
+          "title": "Residual",
+          "type": "boolean"
+        },
+        "text_original": {
+          "title": "Text Original",
+          "type": "string"
+        },
+        "text_en": {
+          "title": "Text En",
+          "type": "string"
+        },
+        "definition": {
+          "default": "",
+          "title": "Definition",
+          "type": "string"
+        },
+        "answer_space": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AnswerSpace"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evaluator": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Evaluator"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "state_vector": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/Estimate"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "State Vector"
+        },
+        "estimate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "sufficiency": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "readiness": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Readiness"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evidence_requirement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EvidenceRequirement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "resolution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Resolution"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "freshness_window_days": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Freshness Window Days"
+        },
+        "verification_cost": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verification Cost"
+        },
+        "generation_cost": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Generation Cost"
+        },
+        "predicate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Predicate"
+        },
+        "members": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Members",
+          "type": "array"
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "enum": [
+                "+",
+                "-",
+                "?"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Direction"
+        },
+        "status": {
+          "$ref": "#/$defs/Status",
+          "default": "submitted"
+        },
+        "created_by": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Provenance"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "text_original",
+        "text_en"
+      ],
+      "title": "Node",
+      "type": "object"
+    },
+    "NodeKind": {
+      "enum": [
+        "question",
+        "option",
+        "criterion",
+        "factor",
+        "constraint",
+        "value",
+        "probe",
+        "evidence",
+        "evidence_link",
+        "conflict"
+      ],
+      "title": "NodeKind",
+      "type": "string"
+    },
+    "Primitive": {
+      "enum": [
+        "noul",
+        "choice",
+        "score",
+        "none"
+      ],
+      "title": "Primitive",
+      "type": "string"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "request_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Request Id"
+        },
+        "provider": {
+          "title": "Provider",
+          "type": "string"
+        },
+        "family": {
+          "title": "Family",
+          "type": "string"
+        },
+        "isolation": {
+          "default": "n/a",
+          "enum": [
+            "same-session",
+            "isolated",
+            "n/a"
+          ],
+          "title": "Isolation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider",
+        "family"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "Question": {
+      "additionalProperties": false,
+      "properties": {
+        "text_original": {
+          "title": "Text Original",
+          "type": "string"
+        },
+        "text_en": {
+          "title": "Text En",
+          "type": "string"
+        },
+        "hash": {
+          "title": "Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text_original",
+        "text_en",
+        "hash"
+      ],
+      "title": "Question",
+      "type": "object"
+    },
+    "Range": {
+      "additionalProperties": false,
+      "properties": {
+        "low": {
+          "title": "Low",
+          "type": "number"
+        },
+        "high": {
+          "title": "High",
+          "type": "number"
+        }
+      },
+      "required": [
+        "low",
+        "high"
+      ],
+      "title": "Range",
+      "type": "object"
+    },
+    "Readiness": {
+      "additionalProperties": false,
+      "properties": {
+        "is_leaf": {
+          "default": false,
+          "title": "Is Leaf",
+          "type": "boolean"
+        },
+        "bounded_p": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bounded P"
+        },
+        "criteria_p": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Criteria P"
+        },
+        "obtainable_p": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Obtainable P"
+        },
+        "asks_preference_p": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asks Preference P"
+        }
+      },
+      "title": "Readiness",
+      "type": "object"
+    },
+    "Resolution": {
+      "additionalProperties": false,
+      "properties": {
+        "criteria": {
+          "default": "",
+          "title": "Criteria",
+          "type": "string"
+        },
+        "fine_print": {
+          "default": "",
+          "title": "Fine Print",
+          "type": "string"
+        },
+        "source": {
+          "default": "",
+          "title": "Source",
+          "type": "string"
+        },
+        "resolve_by": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resolve By"
+        },
+        "resolution": {
+          "default": "unresolved",
+          "enum": [
+            "yes",
+            "no",
+            "ambiguous",
+            "annulled",
+            "unresolved"
+          ],
+          "title": "Resolution",
+          "type": "string"
+        }
+      },
+      "title": "Resolution",
+      "type": "object"
+    },
+    "Rung": {
+      "enum": [
+        "code",
+        "data",
+        "jev",
+        "llm-isolated",
+        "human"
+      ],
+      "title": "Rung",
+      "type": "string"
+    },
+    "SourceTier": {
+      "enum": [
+        "verified",
+        "corroborated",
+        "single-source",
+        "inferred",
+        "jev-judged",
+        "user-stated"
+      ],
+      "title": "SourceTier",
+      "type": "string"
+    },
+    "Stability": {
+      "additionalProperties": false,
+      "properties": {
+        "rerun_sd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rerun Sd"
+        },
+        "paraphrase_sd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Paraphrase Sd"
+        },
+        "permutation_sd": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Permutation Sd"
+        },
+        "negation_gap": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Negation Gap"
+        },
+        "n_reruns": {
+          "default": 0,
+          "title": "N Reruns",
+          "type": "integer"
+        },
+        "n_paraphrases": {
+          "default": 0,
+          "title": "N Paraphrases",
+          "type": "integer"
+        },
+        "n_permutations": {
+          "default": 0,
+          "title": "N Permutations",
+          "type": "integer"
+        }
+      },
+      "title": "Stability",
+      "type": "object"
+    },
+    "Status": {
+      "enum": [
+        "submitted",
+        "working",
+        "input_required",
+        "auth_required",
+        "completed",
+        "failed",
+        "canceled",
+        "rejected"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "Strength": {
+      "additionalProperties": false,
+      "properties": {
+        "direction": {
+          "default": "?",
+          "enum": [
+            "+",
+            "-",
+            "?"
+          ],
+          "title": "Direction",
+          "type": "string"
+        },
+        "prior_source": {
+          "default": "llm",
+          "enum": [
+            "llm",
+            "data",
+            "user"
+          ],
+          "title": "Prior Source",
+          "type": "string"
+        }
+      },
+      "title": "Strength",
+      "type": "object"
+    },
+    "ThresholdRef": {
+      "additionalProperties": false,
+      "description": "The certificate a calibrated judgment was decided against (see `certificates.py`).",
+      "properties": {
+        "card_id": {
+          "title": "Card Id",
+          "type": "string"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "fitted_on": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fitted On"
+        },
+        "n": {
+          "default": 0,
+          "title": "N",
+          "type": "integer"
+        },
+        "status": {
+          "default": "unverified",
+          "enum": [
+            "validated",
+            "provisional",
+            "unfit",
+            "revoked",
+            "unverified"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "experiment_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Experiment Id"
+        },
+        "dataset_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dataset Version"
+        },
+        "measurement_conditions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measurement Conditions"
+        }
+      },
+      "required": [
+        "card_id",
+        "key",
+        "value"
+      ],
+      "title": "ThresholdRef",
+      "type": "object"
+    },
+    "Tier": {
+      "enum": [
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "title": "Tier",
+      "type": "string"
+    },
+    "Verification": {
+      "additionalProperties": false,
+      "properties": {
+        "relevance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "concreteness_gain": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "skipped_level": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "edge_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Estimate"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "Verification",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0",
+      "default": "2.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "slug": {
+      "title": "Slug",
+      "type": "string"
+    },
+    "version": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "parent_version": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Version"
+    },
+    "created": {
+      "title": "Created",
+      "type": "string"
+    },
+    "language": {
+      "$ref": "#/$defs/Language"
+    },
+    "question": {
+      "$ref": "#/$defs/Question"
+    },
+    "frame": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Frame"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/Node"
+      },
+      "title": "Nodes",
+      "type": "array"
+    },
+    "edges": {
+      "items": {
+        "$ref": "#/$defs/Edge"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "budgets": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Budgets"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "provenance": {
+      "$ref": "#/$defs/GraphProvenance"
+    },
+    "gates": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Gate"
+      },
+      "title": "Gates",
+      "type": "object"
+    },
+    "diff_summary": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Diff Summary"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    },
+    "resources": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Resources",
+      "type": "array"
+    }
+  },
+  "required": [
+    "slug",
+    "created",
+    "question"
+  ],
+  "title": "sextant decision graph",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sextant.local/schema/decision-graph/2.0.0",
+  "x-legal-endpoints": {
+    "decomposes_into": [
+      "question->constraint",
+      "question->criterion",
+      "question->factor",
+      "question->option",
+      "question->question"
+    ],
+    "influences": [
+      "factor->criterion",
+      "factor->factor",
+      "option->criterion",
+      "option->factor"
+    ],
+    "constrains": [
+      "constraint->option",
+      "constraint->question"
+    ],
+    "depends_on": [
+      "factor->factor",
+      "probe->probe",
+      "question->question"
+    ],
+    "is_value_for": [
+      "value->criterion"
+    ],
+    "enables": [
+      "option->factor",
+      "probe->factor"
+    ],
+    "measured_by": [
+      "criterion->factor",
+      "factor->evidence",
+      "factor->probe"
+    ],
+    "cites": [
+      "conflict->evidence",
+      "evidence_link->evidence"
+    ],
+    "supports": [
+      "evidence_link->constraint",
+      "evidence_link->criterion",
+      "evidence_link->factor",
+      "evidence_link->option"
+    ],
+    "conflicts": [
+      "conflict->constraint",
+      "conflict->criterion",
+      "conflict->evidence",
+      "conflict->factor",
+      "conflict->option"
+    ]
+  },
+  "x-acyclic-edge-types": [
+    "decomposes_into",
+    "depends_on"
+  ],
+  "x-resolvable-kinds": [
+    "factor",
+    "probe"
+  ]
+}

@@ -1,0 +1,72 @@
+id: RM1
+purpose: Meta card. Jev judging the questions we ask Jev. For each role-card question it checks the wording
+  is literal, single-hop and answerable from its state fields. Runs in the linter and in doctor; never
+  the sole gate.
+primitive: noul
+state_pack:
+- card_instructions
+- question_text
+- state_fields
+- criteria
+instructions: 'You will see the INSTRUCTIONS of a judgment card, one QUESTION from that card, the STATE
+  FIELDS
+
+  the question is allowed to read, and the question''s CRITERIA. Judge the wording only, never any
+
+  answer to the question. "Scoping word" means: a word that narrows or qualifies what counts, such
+
+  as directly, major, enough, concrete, obvious, or reliable. "Defined" means: the instructions
+
+  text says in plain words what the scoping word means for this card. "Arithmetic" means: adding,
+
+  subtracting, multiplying, dividing, or comparing two quantities. "Ask for the same thing" means: the
+  criteria describe the same judgment as the instructions and the question, with yes meaning yes and no
+  meaning no.
+
+  '
+questions:
+  scoping_defined:
+    primitive: noul
+    text: Does the instructions text define every scoping word that the question uses?
+    role: main
+    criteria_true: Every scoping word in the question is defined in plain words in the instructions text.
+    criteria_false: At least one scoping word in the question is not defined in the instructions text,
+      or the question uses no scoping word at all.
+    permits_on: true
+  asks_computation:
+    primitive: noul
+    text: Does the question ask for a count, a date comparison, or arithmetic?
+    role: main
+    criteria_true: Answering the question requires counting items, comparing dates or times, or arithmetic.
+    criteria_false: Answering the question requires no counting, no date comparison, and no arithmetic.
+    permits_on: false
+  answerable_from_fields:
+    primitive: noul
+    text: Could the question be answered from the listed state fields alone?
+    role: main
+    criteria_true: Everything the question refers to is contained in the listed state fields.
+    criteria_false: The question refers to something not contained in the listed state fields.
+    permits_on: true
+  criteria_consistent:
+    primitive: noul
+    text: Do the instructions and the criteria ask for the same thing?
+    role: main
+    criteria_true: The criteria describe the same judgment the instructions and question describe.
+    criteria_false: The criteria describe a different judgment, or reverse the meaning of yes and no.
+    permits_on: true
+thresholds: {}
+rung: jev
+question_hashes:
+  scoping_defined: qh_b10d94dbebd0b43c
+  asks_computation: qh_7824bf8f602e28b8
+  answerable_from_fields: qh_b0aab4da3691b27b
+  criteria_consistent: qh_f8a5e4511693c2b3
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'scoping_defined reads false when a question has no scoping word at all; the linter
+  treats that
+
+  case as clean before asking RM1.
+
+  '

@@ -1,0 +1,127 @@
+{
+  "rule": "children per parent stay within the tier's breadth budget",
+  "expect": "PASS",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_2c6fe3bbd8e5",
+        "kind": "question",
+        "text_original": "Should I take the offer?",
+        "text_en": "Should I take the offer?"
+      },
+      {
+        "id": "n_2edbe26b1b9c",
+        "kind": "factor",
+        "text_original": "component 0",
+        "text_en": "component 0"
+      },
+      {
+        "id": "n_2868e403b907",
+        "kind": "factor",
+        "text_original": "component 1",
+        "text_en": "component 1"
+      },
+      {
+        "id": "n_983d30aeebab",
+        "kind": "factor",
+        "text_original": "component 2",
+        "text_en": "component 2"
+      },
+      {
+        "id": "n_f12d92110a01",
+        "kind": "factor",
+        "text_original": "component 3",
+        "text_en": "component 3"
+      },
+      {
+        "id": "n_fe84b696ecd5",
+        "kind": "factor",
+        "text_original": "other components not listed",
+        "text_en": "other components not listed",
+        "residual": true
+      }
+    ],
+    "edges": [
+      {
+        "id": "e_d68dcca061e5",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_2edbe26b1b9c",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_2edbe26b1b9c"
+          ],
+          "applicability": ""
+        }
+      },
+      {
+        "id": "e_869074539bfa",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_2868e403b907",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_2868e403b907"
+          ],
+          "applicability": ""
+        }
+      },
+      {
+        "id": "e_e1f177f85d48",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_983d30aeebab",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_983d30aeebab"
+          ],
+          "applicability": ""
+        }
+      },
+      {
+        "id": "e_b23e0135c778",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_f12d92110a01",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_f12d92110a01"
+          ],
+          "applicability": ""
+        }
+      },
+      {
+        "id": "e_8529e7f28d87",
+        "type": "decomposes_into",
+        "from_id": "n_2c6fe3bbd8e5",
+        "to_id": "n_fe84b696ecd5",
+        "method": {
+          "ordered": false,
+          "subtasks": [
+            "n_fe84b696ecd5"
+          ],
+          "applicability": ""
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+id: R2
+purpose: The context-sufficiency gate. Fires before a node is decomposed or judged, and inside every leaf
+  request as the sufficiency twin; the per-item relevance question filters context into the state pack.
+primitive: noul
+state_pack:
+- question
+- answer_space
+- context_items
+instructions: 'You will see a QUESTION, its ANSWER SPACE, and a numbered list of CONTEXT ITEMS. Treat
+  the
+
+  context items as the only information that exists. Do not use outside knowledge. "Enough
+
+  information" means: a careful reader could pick one answer from the answer space using only the
+
+  context items and would not have to guess. "Bears on the question" means: the item states a fact
+
+  that would support or change the answer.
+
+  '
+questions:
+  sufficient:
+    primitive: noul
+    text: Is there enough information in the context items to answer the question?
+    role: main
+    criteria_true: A careful reader could pick one answer from the answer space using only the context
+      items and would not have to guess.
+    criteria_false: The context items do not settle the question; a reader would have to guess.
+    permits_on: true
+  sufficient_neg:
+    primitive: noul
+    text: Is the information in the context items too little to answer the question?
+    role: negation_twin
+    criteria_true: The context items do not settle the question; a reader would have to guess.
+    criteria_false: A careful reader could pick one answer from the answer space using only the context
+      items and would not have to guess.
+    permits_on: false
+  item_relevance:
+    primitive: noul
+    text: Does context item {n} state a fact that bears on the question?
+    role: item
+    criteria_true: Context item {n} states a fact that would support or change the answer to the question.
+    criteria_false: Context item {n} does not state a fact that would support or change the answer to
+      the question.
+    permits_on: true
+thresholds: {}
+rung: jev
+question_hashes:
+  sufficient: qh_19dd70eed9d91e43
+  sufficient_neg: qh_bfce2a1ef58cfd29
+  item_relevance: qh_b9a5e45a82fa753d
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'Spike 2026-09-18: 0.02 without the deciding sentence, 0.98 with it (cats-allowed apartment
+
+  item); the zh twin gave 0.03 / 0.98. The negation twin gap was 0.00 on both.
+
+  '

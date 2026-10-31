@@ -1,0 +1,75 @@
+id: R5
+purpose: The leaf test. Decides in code from four literal questions whether a node is compiled enough
+  to be judged (bounded answer space, explicit criteria, obtainable evidence) and whether it is really
+  a preference question that belongs to the values protocol, never to Jev.
+primitive: noul
+state_pack:
+- question
+- definition
+- answer_space
+- evidence_requirement
+- horizon
+instructions: 'You will see one QUESTION with its DEFINITION, its ANSWER SPACE, an EVIDENCE REQUIREMENT
+  (the
+
+  observation that would settle it), and a HORIZON (the time available before the decision).
+
+  "Bounded" means: the answer is one of a fixed list of options or levels written in the answer
+
+  space. "States what would make an answer correct" means: the definition names the concrete
+
+  condition under which each listed answer is the right one. "Prefers, wants, or values" means:
+
+  the question is about what a particular person would choose or care about, not about a fact
+
+  of the world.
+
+  '
+questions:
+  bounded:
+    primitive: noul
+    text: Is the answer space of the question bounded?
+    role: main
+    criteria_true: The answer is one of a fixed list of options or levels written in the answer space.
+    criteria_false: The answer space is open-ended or not written.
+    permits_on: true
+  criteria_explicit:
+    primitive: noul
+    text: Does the definition state, for each listed answer, what would make that answer correct?
+    role: main
+    criteria_true: For each listed answer the definition names the concrete condition under which it is
+      the right one.
+    criteria_false: The definition leaves at least one listed answer without a condition, or has no conditions.
+    permits_on: true
+  obtainable:
+    primitive: noul
+    text: Could a person obtain the evidence named in the evidence requirement within the horizon?
+    role: main
+    criteria_true: The named evidence can be observed, measured, requested, or looked up within the horizon.
+    criteria_false: The named evidence cannot be obtained within the horizon, or no evidence is named.
+    permits_on: true
+  asks_preference:
+    primitive: noul
+    text: Does the question ask what a person prefers, wants, or values?
+    role: main
+    criteria_true: The question is about what a particular person would choose or care about.
+    criteria_false: The question is about a fact of the world that holds regardless of what anyone prefers.
+    permits_on: false
+thresholds: {}
+rung: jev
+question_hashes:
+  bounded: qh_169b9f6e34740edf
+  criteria_explicit: qh_cb3d2a2a94d78c26
+  obtainable: qh_c0d2af62a57e5858
+  asks_preference: qh_a1e0c92daeb0339a
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'Leaf iff bounded, criteria_explicit and obtainable pass and asks_preference is below
+  its
+
+  threshold; a node with asks_preference above threshold becomes a value node and routes to the
+
+  values protocol.
+
+  '

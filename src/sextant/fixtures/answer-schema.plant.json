@@ -1,0 +1,56 @@
+{
+  "rule": "an answer file must conform to its request's JSON Schema",
+  "expect": "FAIL",
+  "data": {
+    "request": {
+      "id": "rq_fixture01",
+      "role": "generator",
+      "purpose": "propose children",
+      "prompt": "Propose three child questions.",
+      "answer_schema": {
+        "type": "object",
+        "required": [
+          "children"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "children": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "required": [
+                "text"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 5
+                }
+              }
+            }
+          }
+        }
+      },
+      "provider": "claude-code",
+      "created": "2026-09-18T00:00:00Z"
+    },
+    "answer": {
+      "request_id": "rq_fixture01",
+      "answer": {
+        "children": [
+          {
+            "text": "Does the salary cover expenses?"
+          },
+          {
+            "text": "Is the commute under 45 minutes?"
+          }
+        ]
+      },
+      "provider": "claude-code",
+      "family": "anthropic",
+      "isolation": "same-session"
+    }
+  }
+}

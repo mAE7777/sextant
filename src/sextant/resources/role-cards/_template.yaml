@@ -1,0 +1,49 @@
+# Role card template. One card = one Jev role. The question text here is the single copy the
+# runtime may send; `SX rolecards seal` records its hash next to the fitted threshold, and the
+# client refuses a question whose text drifted since sealing. Re-test settings (permutations,
+# reruns) are measurement conditions.
+id: R0
+purpose: one sentence, what this role judges and where in the loop it fires
+primitive: noul            # the card's main primitive: noul | choice | score
+state_pack:                # the named fields the runtime fills; nothing else enters the state
+  - field_one
+  - field_two
+instructions: |
+  Literal, English, no double negation. Define every scoping word the questions use.
+questions:
+  main_key:
+    primitive: noul
+    role: main               # main | negation_twin | item | pairwise | sufficiency
+    text: "One single-hop question ending in a question mark?"
+    criteria_true: "What a yes means, as a concrete situation."
+    criteria_false: "What a no means, as a concrete situation."
+  main_key_neg:
+    primitive: noul
+    role: negation_twin
+    permits_on: false        # the answer that permits the guarded action; a twin inverts it
+    text: "The same judgment asked the other way round, in fresh plain words?"
+    criteria_true: "..."
+    criteria_false: "..."
+  per_item_key:
+    primitive: noul
+    role: item               # expanded once per entry of the pack's list field; {n} is the 1-based index
+    text: "Does item {n} ...?"
+    criteria_true: "..."
+    criteria_false: "..."
+  which_kind:
+    primitive: choice
+    role: main
+    text: "Which sentence best describes ...?"
+    options:
+      option_a: "plain sentence describing option a"
+      option_b: "plain sentence describing option b"
+      none_fits: "none of these sentences fits"
+    escape: none_fits
+thresholds: {}             # legacy only; certificates live in the calibration root
+rung: jev                  # jev | llm-isolated | human ; changed only by `calibrate degrade`
+question_hashes: {}        # written by `rolecards seal`
+permutations: 4            # option orders asked for every choice question
+reruns: 3                  # extra asks of every yes/no question, on every ask
+contested_margin: 0.10
+notes_literalness: |
+  What Jev read literally in calibration and how the wording was fixed.

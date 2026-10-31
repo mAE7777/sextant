@@ -1,0 +1,50 @@
+id: RM3
+purpose: Meta card. Gates the build's own completion claims. Given an acceptance criterion and the evidence
+  log offered for it, judges whether the log shows the behavior exercised and whether it is a real run.
+  Applied at every slice boundary and by doctor.
+primitive: noul
+state_pack:
+- criterion
+- evidence_log
+instructions: 'You will see an ACCEPTANCE CRITERION for a piece of software and an EVIDENCE LOG offered
+  as
+
+  proof that the criterion is met. "Exercised" means: the log shows the behavior named in the
+
+  criterion actually happening, not only that a command finished or a file exists. "A real run"
+
+  means: the log is the output a program produced when it ran, as opposed to a person''s or a
+
+  model''s description of what would happen.
+
+  '
+questions:
+  exercised:
+    primitive: noul
+    text: Does the evidence log show that the criterion was exercised?
+    role: main
+    criteria_true: The log shows the behavior named in the criterion actually happening.
+    criteria_false: The log does not show that behavior happening; at most it shows a command finishing
+      or a file existing.
+    permits_on: true
+  real_run:
+    primitive: noul
+    text: Is the evidence log the output of a real run rather than a description of one?
+    role: main
+    criteria_true: The log is output a program produced when it ran.
+    criteria_false: The log is a person's or a model's description of what would happen or what was intended.
+    permits_on: true
+thresholds: {}
+rung: jev
+question_hashes:
+  exercised: qh_05af04c616f05ae7
+  real_run: qh_f3663f1ffb4ad881
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'The classic failure it guards against: "tests passed" offered for a criterion the
+  tests never
+
+  touched. Long logs are trimmed to the lines that mention the criterion''s nouns before packing.
+
+  '

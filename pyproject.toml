@@ -1,0 +1,58 @@
+[project]
+name = "sextant"
+version = "0.1.0rc11"
+description = "Sextant release candidate: turns a goal and evidence into competing explanations, a conditional plan, and the next experiment, and revises the plan as results arrive."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "typesafe-sdk>=0.7.0",
+    "pydantic>=2",
+    "jsonschema>=4",
+    "numpy>=2",
+    "pyyaml>=6",
+]
+
+[project.scripts]
+sextant = "sextant.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff",
+    "mypy",
+    "hypothesis",
+    "types-PyYAML",
+    "types-jsonschema",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sextant"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"examples/v1" = "sextant/resources/examples/v1"
+
+[tool.hatch.build.targets.sdist]
+only-include = ["pyproject.toml", "uv.lock", "README.md", "src/sextant", "examples/v1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "unit: pure logic, no network",
+    "fixture: runs against recorded responses and planted fixtures",
+    "live: needs a live Jev transport key",
+    "slow: long-running",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["sextant"]
+mypy_path = "src"

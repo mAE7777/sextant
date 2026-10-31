@@ -1,0 +1,40 @@
+{
+  "rule": "a Choice answer space carries an escape option",
+  "expect": "PASS",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_0f1873659fa3",
+        "kind": "factor",
+        "text_original": "which department",
+        "text_en": "which department",
+        "answer_space": {
+          "primitive": "choice",
+          "options": {
+            "billing": null,
+            "technical": null,
+            "sales": null,
+            "none_of_these": "none of the departments fits"
+          },
+          "escape_option": "none_of_these"
+        }
+      }
+    ],
+    "edges": []
+  }
+}

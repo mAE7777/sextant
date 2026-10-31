@@ -1,0 +1,2007 @@
+{
+  "protocol": "sextant-agent/1",
+  "schema_version": 1,
+  "schemas": {
+    "Command": {
+      "$defs": {
+        "ObjectRef": {
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,127}$",
+              "title": "Object Id",
+              "type": "string"
+            },
+            "object_kind": {
+              "title": "Object Kind",
+              "type": "string"
+            },
+            "revision_id": {
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Revision Id",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "object_id",
+            "revision_id",
+            "object_kind"
+          ],
+          "title": "ObjectRef",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "authorization_ref": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ObjectRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "command_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Command Id",
+          "type": "string"
+        },
+        "expected_revision": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Revision"
+        },
+        "kind": {
+          "enum": [
+            "start",
+            "inspect",
+            "run",
+            "pause",
+            "resume",
+            "cancel",
+            "observe",
+            "withdraw",
+            "resolve",
+            "revise",
+            "export",
+            "import",
+            "authorize",
+            "replay",
+            "reconcile"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "mission_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mission Id"
+        },
+        "payload": {
+          "additionalProperties": true,
+          "title": "Payload",
+          "type": "object"
+        },
+        "protocol": {
+          "const": "sextant-agent/1",
+          "default": "sextant-agent/1",
+          "title": "Protocol",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "command_id",
+        "kind"
+      ],
+      "title": "Command",
+      "type": "object"
+    },
+    "CommandResult": {
+      "additionalProperties": false,
+      "properties": {
+        "command_id": {
+          "title": "Command Id",
+          "type": "string"
+        },
+        "current_revision": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Current Revision"
+        },
+        "errors": {
+          "items": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "title": "Errors",
+          "type": "array"
+        },
+        "events": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "mission_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mission Id"
+        },
+        "next_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Next Actions",
+          "type": "array"
+        },
+        "outputs": {
+          "additionalProperties": true,
+          "title": "Outputs",
+          "type": "object"
+        },
+        "protocol": {
+          "const": "sextant-agent/1",
+          "default": "sextant-agent/1",
+          "title": "Protocol",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "command_id",
+        "status"
+      ],
+      "title": "CommandResult",
+      "type": "object"
+    },
+    "CompileOptions": {
+      "$defs": {
+        "SubmissionProjection": {
+          "additionalProperties": false,
+          "properties": {
+            "coordinates_field": {
+              "default": "variables",
+              "title": "Coordinates Field",
+              "type": "string"
+            },
+            "expression_kind": {
+              "default": "expression",
+              "title": "Expression Kind",
+              "type": "string"
+            },
+            "kind_field": {
+              "default": "kind",
+              "title": "Kind Field",
+              "type": "string"
+            },
+            "model_schema": {
+              "additionalProperties": true,
+              "title": "Model Schema",
+              "type": "object"
+            },
+            "path": {
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "title": "Path",
+              "type": "array"
+            },
+            "payload_field": {
+              "default": "payload",
+              "title": "Payload Field",
+              "type": "string"
+            },
+            "row_input_field": {
+              "default": "inputs",
+              "title": "Row Input Field",
+              "type": "string"
+            },
+            "rows_field": {
+              "default": "rows",
+              "title": "Rows Field",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "table_kind": {
+              "default": "table",
+              "title": "Table Kind",
+              "type": "string"
+            }
+          },
+          "required": [
+            "path",
+            "model_schema"
+          ],
+          "title": "SubmissionProjection",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "challenger": {
+          "default": true,
+          "title": "Challenger",
+          "type": "boolean"
+        },
+        "effort": {
+          "default": "high",
+          "title": "Effort",
+          "type": "string"
+        },
+        "environment": {
+          "additionalProperties": true,
+          "title": "Environment",
+          "type": "object"
+        },
+        "experiment_batch_size": {
+          "default": 8,
+          "maximum": 32,
+          "minimum": 1,
+          "title": "Experiment Batch Size",
+          "type": "integer"
+        },
+        "generator": {
+          "default": "claude-code",
+          "enum": [
+            "claude-code",
+            "codex"
+          ],
+          "title": "Generator",
+          "type": "string"
+        },
+        "jev_density": {
+          "default": "multi_level",
+          "enum": [
+            "none",
+            "final_only",
+            "context_local",
+            "multi_level"
+          ],
+          "title": "Jev Density",
+          "type": "string"
+        },
+        "model": {
+          "default": "opus",
+          "title": "Model",
+          "type": "string"
+        },
+        "rerepresentation": {
+          "default": true,
+          "title": "Rerepresentation",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "steps": {
+          "default": 3,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Steps",
+          "type": "integer"
+        },
+        "submission_projection": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SubmissionProjection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "CompileOptions",
+      "type": "object"
+    },
+    "Mission": {
+      "$defs": {
+        "Scope": {
+          "additionalProperties": false,
+          "properties": {
+            "domain": {
+              "default": "unknown",
+              "title": "Domain",
+              "type": "string"
+            },
+            "environment": {
+              "default": "unknown",
+              "title": "Environment",
+              "type": "string"
+            },
+            "language": {
+              "default": "unknown",
+              "title": "Language",
+              "type": "string"
+            },
+            "population": {
+              "default": "unknown",
+              "title": "Population",
+              "type": "string"
+            },
+            "representation_version": {
+              "default": "1",
+              "title": "Representation Version",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "subject": {
+              "default": "unknown",
+              "title": "Subject",
+              "type": "string"
+            },
+            "units": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "title": "Units",
+              "type": "object"
+            },
+            "valid_from": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Valid From"
+            },
+            "valid_until": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Valid Until"
+            }
+          },
+          "title": "Scope",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "exit_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Exit Conditions",
+          "type": "array"
+        },
+        "goal": {
+          "minLength": 1,
+          "title": "Goal",
+          "type": "string"
+        },
+        "goal_source": {
+          "title": "Goal Source",
+          "type": "string"
+        },
+        "hard_constraints": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Hard Constraints",
+          "type": "array"
+        },
+        "material_scope": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Material Scope",
+          "type": "array"
+        },
+        "objective_metrics": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Objective Metrics",
+          "type": "array"
+        },
+        "preference_order": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Preference Order",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        },
+        "utility_mapping": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Utility Mapping"
+        },
+        "waiting_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Waiting Conditions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "goal",
+        "goal_source"
+      ],
+      "title": "Mission",
+      "type": "object"
+    },
+    "Observation": {
+      "$defs": {
+        "ObjectRef": {
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,127}$",
+              "title": "Object Id",
+              "type": "string"
+            },
+            "object_kind": {
+              "title": "Object Kind",
+              "type": "string"
+            },
+            "revision_id": {
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Revision Id",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "object_id",
+            "revision_id",
+            "object_kind"
+          ],
+          "title": "ObjectRef",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "completeness": {
+          "default": "unknown",
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ],
+          "title": "Completeness",
+          "type": "string"
+        },
+        "content": {
+          "title": "Content"
+        },
+        "correction_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correction Reason"
+        },
+        "environment_scope": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Environment Scope"
+        },
+        "external_observation_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "External Observation Id"
+        },
+        "locator": {
+          "default": "whole",
+          "title": "Locator",
+          "type": "string"
+        },
+        "measurement_protocol": {
+          "title": "Measurement Protocol",
+          "type": "string"
+        },
+        "observed_at": {
+          "title": "Observed At",
+          "type": "string"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurred At"
+        },
+        "provenance": {
+          "default": "declared",
+          "enum": [
+            "declared",
+            "local-file",
+            "constructed",
+            "environment"
+          ],
+          "title": "Provenance",
+          "type": "string"
+        },
+        "read_range": {
+          "anyOf": [
+            {
+              "maxItems": 2,
+              "minItems": 2,
+              "prefixItems": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Read Range"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "source_group": {
+          "title": "Source Group",
+          "type": "string"
+        },
+        "source_revision": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Revision"
+        },
+        "status": {
+          "default": "active",
+          "enum": [
+            "active",
+            "withdrawn"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "supersedes": {
+          "items": {
+            "$ref": "#/$defs/ObjectRef"
+          },
+          "title": "Supersedes",
+          "type": "array"
+        },
+        "supports_scope": {
+          "title": "Supports Scope",
+          "type": "string"
+        },
+        "total_bytes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Total Bytes"
+        }
+      },
+      "required": [
+        "content",
+        "source",
+        "source_group",
+        "observed_at",
+        "measurement_protocol",
+        "supports_scope"
+      ],
+      "title": "Observation",
+      "type": "object"
+    },
+    "Policy": {
+      "$defs": {
+        "Experiment": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "title": "Action",
+              "type": "string"
+            },
+            "adapter": {
+              "enum": [
+                "sandbox.python",
+                "environment",
+                "source.file"
+              ],
+              "title": "Adapter",
+              "type": "string"
+            },
+            "changes_world": {
+              "default": false,
+              "title": "Changes World",
+              "type": "boolean"
+            },
+            "distinguishes": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Distinguishes",
+              "type": "array"
+            },
+            "expected_observations": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Expected Observations",
+              "type": "array"
+            },
+            "independent_group": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Independent Group"
+            },
+            "inputs": {
+              "additionalProperties": true,
+              "title": "Inputs",
+              "type": "object"
+            },
+            "key": {
+              "title": "Key",
+              "type": "string"
+            },
+            "purpose": {
+              "title": "Purpose",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "key",
+            "adapter",
+            "action",
+            "inputs",
+            "purpose"
+          ],
+          "title": "Experiment",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "basis": {
+          "title": "Basis",
+          "type": "string"
+        },
+        "branches": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Branches",
+          "type": "array"
+        },
+        "decision_analysis": {
+          "additionalProperties": true,
+          "title": "Decision Analysis",
+          "type": "object"
+        },
+        "hard_constraints": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "title": "Hard Constraints",
+          "type": "array"
+        },
+        "next_experiments": {
+          "items": {
+            "$ref": "#/$defs/Experiment"
+          },
+          "title": "Next Experiments",
+          "type": "array"
+        },
+        "ordering": {
+          "enum": [
+            "conditional-partial-order",
+            "authorized-cardinal",
+            "deterministic"
+          ],
+          "title": "Ordering",
+          "type": "string"
+        },
+        "reversal_triggers": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reversal Triggers",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "unresolved": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unresolved",
+          "type": "array"
+        }
+      },
+      "required": [
+        "summary",
+        "branches",
+        "hard_constraints",
+        "unresolved",
+        "reversal_triggers",
+        "ordering",
+        "basis"
+      ],
+      "title": "Policy",
+      "type": "object"
+    },
+    "Prediction": {
+      "$defs": {
+        "ObjectRef": {
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,127}$",
+              "title": "Object Id",
+              "type": "string"
+            },
+            "object_kind": {
+              "title": "Object Kind",
+              "type": "string"
+            },
+            "revision_id": {
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Revision Id",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "object_id",
+            "revision_id",
+            "object_kind"
+          ],
+          "title": "ObjectRef",
+          "type": "object"
+        },
+        "ResolutionCorrection": {
+          "additionalProperties": false,
+          "description": "Computed retrospective provenance; never a new confirming sample.",
+          "properties": {
+            "computed_at": {
+              "title": "Computed At",
+              "type": "string"
+            },
+            "confirming_sample": {
+              "const": false,
+              "default": false,
+              "title": "Confirming Sample",
+              "type": "boolean"
+            },
+            "contract_error": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Contract Error"
+            },
+            "contract_error_code": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Contract Error Code"
+            },
+            "correction_reason": {
+              "title": "Correction Reason",
+              "type": "string"
+            },
+            "disposition": {
+              "enum": [
+                "recomputed",
+                "invalid-contract"
+              ],
+              "title": "Disposition",
+              "type": "string"
+            },
+            "observation_ref": {
+              "$ref": "#/$defs/ObjectRef"
+            },
+            "original_frozen_at": {
+              "title": "Original Frozen At",
+              "type": "string"
+            },
+            "original_outcome": {
+              "title": "Original Outcome"
+            },
+            "original_status": {
+              "const": "resolved",
+              "title": "Original Status",
+              "type": "string"
+            },
+            "protocol_fingerprint": {
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Protocol Fingerprint",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "supersedes_prediction_ref": {
+              "$ref": "#/$defs/ObjectRef"
+            }
+          },
+          "required": [
+            "supersedes_prediction_ref",
+            "original_status",
+            "original_outcome",
+            "original_frozen_at",
+            "observation_ref",
+            "correction_reason",
+            "computed_at",
+            "protocol_fingerprint",
+            "disposition"
+          ],
+          "title": "ResolutionCorrection",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "censoring_rule": {
+          "title": "Censoring Rule",
+          "type": "string"
+        },
+        "frozen_at": {
+          "title": "Frozen At",
+          "type": "string"
+        },
+        "horizon": {
+          "title": "Horizon",
+          "type": "string"
+        },
+        "outcome": {
+          "default": null,
+          "title": "Outcome"
+        },
+        "outcome_domain": {
+          "items": {},
+          "title": "Outcome Domain",
+          "type": "array"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "resolution_correction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ResolutionCorrection"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "resolution_refs": {
+          "items": {
+            "$ref": "#/$defs/ObjectRef"
+          },
+          "title": "Resolution Refs",
+          "type": "array"
+        },
+        "resolver": {
+          "enum": [
+            "field-equals/1",
+            "numeric-threshold/1",
+            "declared/1"
+          ],
+          "title": "Resolver",
+          "type": "string"
+        },
+        "resolver_spec": {
+          "additionalProperties": true,
+          "description": "Deterministic resolvers bind measurement_protocol/source/supports_scope and an explicit field array of JSON string keys/nonnegative integer indices ([] selects the whole value). field_path is an accepted alias; both must agree if supplied. field-equals requires equals; numeric-threshold requires finite threshold, comparison le/ge, explicit unit string and unit_field array. declared/1 stays pending.",
+          "title": "Resolver Spec",
+          "type": "object"
+        },
+        "sampling_rule": {
+          "title": "Sampling Rule",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "status": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "resolved",
+            "censored",
+            "invalid"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "question",
+        "outcome_domain",
+        "horizon",
+        "resolver",
+        "resolver_spec",
+        "sampling_rule",
+        "censoring_rule",
+        "frozen_at"
+      ],
+      "title": "Prediction",
+      "type": "object"
+    },
+    "Proposal": {
+      "$defs": {
+        "Candidate": {
+          "additionalProperties": false,
+          "properties": {
+            "assumptions": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Assumptions",
+              "type": "array"
+            },
+            "combination_dependencies": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Combination Dependencies",
+              "type": "array"
+            },
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Evidence",
+              "type": "array"
+            },
+            "experiments": {
+              "items": {
+                "$ref": "#/$defs/Experiment"
+              },
+              "title": "Experiments",
+              "type": "array"
+            },
+            "key": {
+              "title": "Key",
+              "type": "string"
+            },
+            "lineage": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Lineage",
+              "type": "array"
+            },
+            "mechanism": {
+              "title": "Mechanism",
+              "type": "string"
+            },
+            "predictions": {
+              "items": {
+                "$ref": "#/$defs/PredictionSpec"
+              },
+              "title": "Predictions",
+              "type": "array"
+            },
+            "reopen_trigger": {
+              "default": "new contrary evidence",
+              "title": "Reopen Trigger",
+              "type": "string"
+            },
+            "representation": {
+              "$ref": "#/$defs/Representation"
+            },
+            "scenario_metrics": {
+              "additionalProperties": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "title": "Scenario Metrics",
+              "type": "object"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "temporary_disadvantage": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Temporary Disadvantage"
+            }
+          },
+          "required": [
+            "key",
+            "mechanism",
+            "assumptions",
+            "representation"
+          ],
+          "title": "Candidate",
+          "type": "object"
+        },
+        "Experiment": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "title": "Action",
+              "type": "string"
+            },
+            "adapter": {
+              "enum": [
+                "sandbox.python",
+                "environment",
+                "source.file"
+              ],
+              "title": "Adapter",
+              "type": "string"
+            },
+            "changes_world": {
+              "default": false,
+              "title": "Changes World",
+              "type": "boolean"
+            },
+            "distinguishes": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Distinguishes",
+              "type": "array"
+            },
+            "expected_observations": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Expected Observations",
+              "type": "array"
+            },
+            "independent_group": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Independent Group"
+            },
+            "inputs": {
+              "additionalProperties": true,
+              "title": "Inputs",
+              "type": "object"
+            },
+            "key": {
+              "title": "Key",
+              "type": "string"
+            },
+            "purpose": {
+              "title": "Purpose",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "key",
+            "adapter",
+            "action",
+            "inputs",
+            "purpose"
+          ],
+          "title": "Experiment",
+          "type": "object"
+        },
+        "Policy": {
+          "additionalProperties": false,
+          "properties": {
+            "assumptions": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Assumptions",
+              "type": "array"
+            },
+            "basis": {
+              "title": "Basis",
+              "type": "string"
+            },
+            "branches": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "title": "Branches",
+              "type": "array"
+            },
+            "decision_analysis": {
+              "additionalProperties": true,
+              "title": "Decision Analysis",
+              "type": "object"
+            },
+            "hard_constraints": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "title": "Hard Constraints",
+              "type": "array"
+            },
+            "next_experiments": {
+              "items": {
+                "$ref": "#/$defs/Experiment"
+              },
+              "title": "Next Experiments",
+              "type": "array"
+            },
+            "ordering": {
+              "enum": [
+                "conditional-partial-order",
+                "authorized-cardinal",
+                "deterministic"
+              ],
+              "title": "Ordering",
+              "type": "string"
+            },
+            "reversal_triggers": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Reversal Triggers",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "summary": {
+              "title": "Summary",
+              "type": "string"
+            },
+            "unresolved": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Unresolved",
+              "type": "array"
+            }
+          },
+          "required": [
+            "summary",
+            "branches",
+            "hard_constraints",
+            "unresolved",
+            "reversal_triggers",
+            "ordering",
+            "basis"
+          ],
+          "title": "Policy",
+          "type": "object"
+        },
+        "PredictionSpec": {
+          "additionalProperties": false,
+          "description": "A proposed question/outcome contract; only the host supplies its freeze time.",
+          "properties": {
+            "censoring_rule": {
+              "title": "Censoring Rule",
+              "type": "string"
+            },
+            "horizon": {
+              "title": "Horizon",
+              "type": "string"
+            },
+            "outcome_domain": {
+              "items": {},
+              "title": "Outcome Domain",
+              "type": "array"
+            },
+            "question": {
+              "title": "Question",
+              "type": "string"
+            },
+            "resolver": {
+              "enum": [
+                "field-equals/1",
+                "numeric-threshold/1",
+                "declared/1"
+              ],
+              "title": "Resolver",
+              "type": "string"
+            },
+            "resolver_spec": {
+              "additionalProperties": true,
+              "description": "Deterministic resolvers bind measurement_protocol/source/supports_scope and an explicit field array of JSON string keys/nonnegative integer indices ([] selects the whole value). field_path is an accepted alias; both must agree if supplied. field-equals requires equals; numeric-threshold requires finite threshold, comparison le/ge, explicit unit string and unit_field array. declared/1 stays pending.",
+              "title": "Resolver Spec",
+              "type": "object"
+            },
+            "sampling_rule": {
+              "title": "Sampling Rule",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "question",
+            "outcome_domain",
+            "horizon",
+            "resolver",
+            "resolver_spec",
+            "sampling_rule",
+            "censoring_rule"
+          ],
+          "title": "PredictionSpec",
+          "type": "object"
+        },
+        "Representation": {
+          "additionalProperties": false,
+          "properties": {
+            "body": {
+              "additionalProperties": true,
+              "title": "Body",
+              "type": "object"
+            },
+            "composition_rule": {
+              "title": "Composition Rule",
+              "type": "string"
+            },
+            "input_interface": {
+              "additionalProperties": true,
+              "title": "Input Interface",
+              "type": "object"
+            },
+            "interactions": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Interactions",
+              "type": "array"
+            },
+            "kind": {
+              "enum": [
+                "argument_graph",
+                "table",
+                "program",
+                "conditional_policy",
+                "unsupported"
+              ],
+              "title": "Kind",
+              "type": "string"
+            },
+            "loss": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Loss",
+              "type": "array"
+            },
+            "output_interface": {
+              "additionalProperties": true,
+              "title": "Output Interface",
+              "type": "object"
+            },
+            "residual": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Residual",
+              "type": "array"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "version": {
+              "default": "1",
+              "title": "Version",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "body",
+            "composition_rule"
+          ],
+          "title": "Representation",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Generator output: assertions remain proposals until checked against evidence.",
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/Candidate"
+          },
+          "minItems": 1,
+          "title": "Candidates",
+          "type": "array"
+        },
+        "direct_result": {
+          "default": null,
+          "title": "Direct Result"
+        },
+        "evidence_links": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Evidence Links",
+          "type": "object"
+        },
+        "policy": {
+          "$ref": "#/$defs/Policy"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "understanding": {
+          "title": "Understanding",
+          "type": "string"
+        },
+        "unknowns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unknowns",
+          "type": "array"
+        }
+      },
+      "required": [
+        "understanding",
+        "candidates",
+        "policy",
+        "unknowns"
+      ],
+      "title": "Proposal",
+      "type": "object"
+    },
+    "Receipt": {
+      "additionalProperties": false,
+      "properties": {
+        "auth_evidence": {
+          "default": "unknown",
+          "title": "Auth Evidence",
+          "type": "string"
+        },
+        "auth_route": {
+          "default": "unknown",
+          "title": "Auth Route",
+          "type": "string"
+        },
+        "ended_at": {
+          "title": "Ended At",
+          "type": "string"
+        },
+        "errors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Errors",
+          "type": "array"
+        },
+        "executor": {
+          "title": "Executor",
+          "type": "string"
+        },
+        "exit_code": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exit Code"
+        },
+        "external_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "External Id"
+        },
+        "isolation": {
+          "additionalProperties": true,
+          "title": "Isolation",
+          "type": "object"
+        },
+        "observed_effort": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed Effort"
+        },
+        "observed_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observed Model"
+        },
+        "output_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Hash"
+        },
+        "request_hash": {
+          "title": "Request Hash",
+          "type": "string"
+        },
+        "requested_effort": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Effort"
+        },
+        "requested_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Model"
+        },
+        "residual_processes": {
+          "default": "unknown",
+          "title": "Residual Processes",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "session": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Session"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "failed",
+            "unknown",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "timed_out": {
+          "default": false,
+          "title": "Timed Out",
+          "type": "boolean"
+        },
+        "tool_state": {
+          "default": "unknown",
+          "title": "Tool State",
+          "type": "string"
+        },
+        "usage": {
+          "additionalProperties": true,
+          "title": "Usage",
+          "type": "object"
+        }
+      },
+      "required": [
+        "executor",
+        "started_at",
+        "ended_at",
+        "request_hash",
+        "status"
+      ],
+      "title": "Receipt",
+      "type": "object"
+    },
+    "Revision": {
+      "$defs": {
+        "ArtifactRef": {
+          "additionalProperties": false,
+          "properties": {
+            "access_class": {
+              "default": "mission-private",
+              "title": "Access Class",
+              "type": "string"
+            },
+            "locator": {
+              "default": "whole",
+              "title": "Locator",
+              "type": "string"
+            },
+            "media_type": {
+              "title": "Media Type",
+              "type": "string"
+            },
+            "read_range": {
+              "anyOf": [
+                {
+                  "maxItems": 2,
+                  "minItems": 2,
+                  "prefixItems": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Read Range"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "sha256": {
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Sha256",
+              "type": "string"
+            },
+            "size": {
+              "minimum": 0,
+              "title": "Size",
+              "type": "integer"
+            },
+            "source": {
+              "title": "Source",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sha256",
+            "size",
+            "media_type",
+            "source"
+          ],
+          "title": "ArtifactRef",
+          "type": "object"
+        },
+        "ObjectRef": {
+          "additionalProperties": false,
+          "properties": {
+            "object_id": {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,127}$",
+              "title": "Object Id",
+              "type": "string"
+            },
+            "object_kind": {
+              "title": "Object Kind",
+              "type": "string"
+            },
+            "revision_id": {
+              "pattern": "^[a-f0-9]{64}$",
+              "title": "Revision Id",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "object_id",
+            "revision_id",
+            "object_kind"
+          ],
+          "title": "ObjectRef",
+          "type": "object"
+        },
+        "Scope": {
+          "additionalProperties": false,
+          "properties": {
+            "domain": {
+              "default": "unknown",
+              "title": "Domain",
+              "type": "string"
+            },
+            "environment": {
+              "default": "unknown",
+              "title": "Environment",
+              "type": "string"
+            },
+            "language": {
+              "default": "unknown",
+              "title": "Language",
+              "type": "string"
+            },
+            "population": {
+              "default": "unknown",
+              "title": "Population",
+              "type": "string"
+            },
+            "representation_version": {
+              "default": "1",
+              "title": "Representation Version",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "subject": {
+              "default": "unknown",
+              "title": "Subject",
+              "type": "string"
+            },
+            "units": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "title": "Units",
+              "type": "object"
+            },
+            "valid_from": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Valid From"
+            },
+            "valid_until": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Valid Until"
+            }
+          },
+          "title": "Scope",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "artifacts": {
+          "items": {
+            "$ref": "#/$defs/ArtifactRef"
+          },
+          "title": "Artifacts",
+          "type": "array"
+        },
+        "dependencies": {
+          "items": {
+            "$ref": "#/$defs/ObjectRef"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "mission_id": {
+          "title": "Mission Id",
+          "type": "string"
+        },
+        "payload": {
+          "additionalProperties": true,
+          "title": "Payload",
+          "type": "object"
+        },
+        "predecessor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ObjectRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "scope": {
+          "$ref": "#/$defs/Scope"
+        }
+      },
+      "required": [
+        "ref",
+        "mission_id",
+        "scope",
+        "payload"
+      ],
+      "title": "Revision",
+      "type": "object"
+    }
+  }
+}

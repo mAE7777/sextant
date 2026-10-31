@@ -1,0 +1,30 @@
+{
+  "rule": "a value node never carries a Jev estimate",
+  "expect": "PASS",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_a9473ae9a2f9",
+        "kind": "value",
+        "text_original": "family proximity matters",
+        "text_en": "family proximity matters"
+      }
+    ],
+    "edges": []
+  }
+}

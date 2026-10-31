@@ -1,0 +1,69 @@
+{
+  "rule": "an estimate on a factor or probe needs resolution criteria",
+  "expect": "PASS",
+  "data": {
+    "schema_version": "2.0.0",
+    "slug": "fixture",
+    "version": 1,
+    "created": "2026-09-18T00:00:00Z",
+    "question": {
+      "text_original": "Should I take the offer?",
+      "text_en": "Should I take the offer?",
+      "hash": "q_79ca97ed6977fa37"
+    },
+    "frame": {
+      "x": "now",
+      "y": "goal",
+      "decision_type": "choose",
+      "tier": "T2"
+    },
+    "nodes": [
+      {
+        "id": "n_402f5c3777dc",
+        "kind": "factor",
+        "text_original": "salary covers expenses",
+        "text_en": "salary covers expenses",
+        "estimate": {
+          "primitive": "noul",
+          "p": 0.8,
+          "card_id": "R7",
+          "question_key": "leaf",
+          "question_hash": "qh_09ff8c776282c101",
+          "rendered_hash": "rq_044b4e580942b947",
+          "state_sha": "e92a83518b66d994",
+          "protocol_version": "sextant-jev-wire/3",
+          "run_id": "run_fixture0001",
+          "language": "en",
+          "aggregation": "single",
+          "contested": false,
+          "contributions": [
+            {
+              "call_id": "jc_fixture0001",
+              "variant": "base",
+              "role": "primary",
+              "rendered_hash": "rq_044b4e580942b947",
+              "value": 0.8,
+              "contributes_to_value": true
+            }
+          ],
+          "model_id": "jev-1.13.0",
+          "transport": "controlled:fixture",
+          "source_tier": "jev-judged",
+          "calibration_status": {
+            "kind": "outcome",
+            "state": "pending",
+            "n": 0,
+            "bar": 30
+          },
+          "at": "2026-09-18T00:00:00Z"
+        },
+        "resolution": {
+          "criteria": "offer letter states base salary >= 1.2x monthly expenses",
+          "source": "offer letter",
+          "resolve_by": "2026-10-01"
+        }
+      }
+    ],
+    "edges": []
+  }
+}

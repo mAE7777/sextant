@@ -1,0 +1,107 @@
+{
+  "mission": {
+    "goal": "Diagnose the supplied synthetic pricing service. Preserve competing explanations until an executed test distinguishes them, test proposed repairs in isolated Python, and recommend a conditional repair that returns the correct region-specific price while reducing origin lookups. Report actual test inputs, mismatches and origin-call counts. Do not deploy anything or claim correctness beyond tested inputs.",
+    "scope": {
+      "language": "zh",
+      "domain": "the supplied synthetic pricing program and explicit request sequences"
+    },
+    "hard_constraints": [
+      {
+        "id": "correct-prices",
+        "requirement": "Every tested response must equal the current origin price for that request's region and SKU; unexecuted repairs remain unverified."
+      }
+    ],
+    "objective_metrics": [
+      {
+        "metric": "origin_calls",
+        "direction": "min",
+        "unit": "calls"
+      }
+    ],
+    "exit_conditions": [
+      "At least one actual failing sequence and one actually tested repair, or an explicit unresolved condition and next experiment"
+    ]
+  },
+  "observations": [
+    {
+      "source": "packaged synthetic service source v1",
+      "source_group": "service-cache-example",
+      "supports_scope": "This supplied source and workload specification; execution has not yet been performed",
+      "content": {
+        "program": "PRICES = {('US', 'tea'): 5, ('EU', 'tea'): 7, ('US', 'coffee'): 8, ('EU', 'coffee'): 11}\ndef simulate(requests, mode='sku'):\n    cache = {}\n    replies = []\n    origin_calls = 0\n    for region, sku in requests:\n        key = sku if mode == 'sku' else (region, sku)\n        if mode == 'off' or key not in cache:\n            origin_calls += 1\n            cache[key] = PRICES[(region, sku)]\n        replies.append(cache[key])\n    return {'replies': replies, 'origin_calls': origin_calls}\n",
+        "current_mode": "sku",
+        "request_sequences": {
+          "same_region": [
+            [
+              "US",
+              "tea"
+            ],
+            [
+              "US",
+              "tea"
+            ],
+            [
+              "US",
+              "coffee"
+            ]
+          ],
+          "mixed_regions": [
+            [
+              "US",
+              "tea"
+            ],
+            [
+              "EU",
+              "tea"
+            ],
+            [
+              "US",
+              "tea"
+            ],
+            [
+              "EU",
+              "coffee"
+            ],
+            [
+              "US",
+              "coffee"
+            ]
+          ]
+        },
+        "available_modes": [
+          "sku",
+          "region_sku",
+          "off"
+        ],
+        "measurement_rule": "Compare every reply against PRICES[(region, sku)] for the same request. Count origin calls; do not infer latency from this count."
+      }
+    }
+  ],
+  "authorization": {
+    "tools": [
+      "codex",
+      "typesafe",
+      "sandbox.python"
+    ],
+    "send_to": {
+      "codex": [
+        "*"
+      ],
+      "typesafe": [
+        "*"
+      ],
+      "sandbox.python": [
+        "*"
+      ]
+    }
+  },
+  "options": {
+    "generator": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "jev_density": "multi_level",
+    "challenger": true,
+    "rerepresentation": true,
+    "steps": 5
+  }
+}

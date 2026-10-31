@@ -1,0 +1,22 @@
+id: R2
+purpose: sufficiency
+primitive: noul
+state_pack:
+- question
+- answer_space
+- context_items
+instructions: Treat the context items as the only information that exists.
+questions:
+  sufficient:
+    primitive: noul
+    text: Is there enough information in the context items to answer the question?
+    criteria_true: A careful reader could pick one answer using only the context items.
+    criteria_false: The context items do not settle the question.
+thresholds:
+  sufficient:
+    value: 0.7
+    n: 150
+    date: '2026-09-18'
+    primitive: noul
+question_hashes:
+  sufficient: qh_e63c88531e997744

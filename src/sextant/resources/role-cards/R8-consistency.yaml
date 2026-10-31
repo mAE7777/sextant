@@ -1,0 +1,62 @@
+id: R8
+purpose: The final consistency check. For every claim in a rendered policy or explanation, judges whether
+  the cited nodes and evidence support it, whether it adds something they do not contain, and whether
+  it contradicts a constraint. Fires at render and at every explain.
+primitive: noul
+state_pack:
+- claim
+- cited_nodes
+- evidence_quotes
+- constraints
+instructions: 'You will see one CLAIM from a written recommendation, the NODES it cites with their estimates
+
+  written in words, the EVIDENCE quotes behind those nodes, and the CONSTRAINTS of the decision.
+
+  "Supported" means: the listed nodes and evidence, taken together, give a reason to believe the
+
+  claim as stated. "Absent from" means: the claim contains a statement of fact or a number that
+
+  appears nowhere in the listed nodes and evidence. "Contradicts" means: the claim and a listed
+
+  constraint cannot both hold.
+
+  '
+questions:
+  supported:
+    primitive: noul
+    text: Is the claim supported by the listed nodes and evidence?
+    role: main
+    criteria_true: The listed nodes and evidence, taken together, give a reason to believe the claim as
+      stated.
+    criteria_false: The listed nodes and evidence do not give a reason to believe the claim as stated.
+    permits_on: true
+  adds_new:
+    primitive: noul
+    text: Does the claim state something that is absent from the listed nodes and evidence?
+    role: main
+    criteria_true: The claim contains a statement of fact or a number that appears nowhere in the listed
+      nodes and evidence.
+    criteria_false: Everything the claim states appears in the listed nodes or evidence.
+    permits_on: false
+  violates:
+    primitive: noul
+    text: Does the claim contradict any listed constraint?
+    role: main
+    criteria_true: The claim and at least one listed constraint cannot both hold.
+    criteria_false: The claim is compatible with every listed constraint.
+    permits_on: false
+thresholds: {}
+rung: jev
+question_hashes:
+  supported: qh_fbf2fa701bd000c9
+  adds_new: qh_749f3cb4d8594b6f
+  violates: qh_de37214a02659925
+permutations: 4
+reruns: 3
+contested_margin: 0.1
+notes_literalness: 'One request per claim. A claim with supported low, or adds_new high, or violates high
+  is
+
+  returned to the renderer with the offending sentence quoted.
+
+  '
