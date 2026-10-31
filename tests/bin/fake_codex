@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+"""A stand-in for the codex binary used by the provider tests (no network, no model).
+
+Understands `--version` and `exec ... --output-schema <schema> -o <out> -`; reads the prompt
+from stdin and writes a JSON object that satisfies the simple test schema.
+"""
+import json
+import sys
+
+
+def main() -> int:
+    argv = sys.argv[1:]
+    if argv[:1] == ["--version"]:
+        print("fake-codex 0.0.1")
+        return 0
+    if argv[:1] != ["exec"]:
+        print("unsupported", file=sys.stderr)
+        return 2
+    schema_path = argv[argv.index("--output-schema") + 1]
+    out_path = argv[argv.index("-o") + 1]
+    prompt = sys.stdin.read()
+    schema = json.load(open(schema_path))
+    props = schema.get("properties", {})
+    answer = {}
+    for key, spec in props.items():
+        t = spec.get("type")
+        if t == "boolean":
+            answer[key] = True
+        elif t == "string":
+            answer[key] = f"fake answer to: {prompt[:40]}"
+        elif t == "integer":
+            answer[key] = 1
+        elif t == "array":
+            answer[key] = [{"text": "fake child question one"}, {"text": "fake child question two"}, {"text": "fake child question three"}]
+    with open(out_path, "w") as f:
+        json.dump(answer, f)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
